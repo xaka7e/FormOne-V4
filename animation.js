@@ -1,4 +1,20 @@
 'use strict';
+const mobileLayout=matchMedia('(max-width:700px), (max-width:950px) and (max-height:500px) and (pointer:coarse)');
+const header=document.querySelector('header');
+const menuToggle=document.querySelector('.menu-toggle');
+function closeMenu(restoreFocus=false){
+  header.classList.remove('menu-open');
+  menuToggle.setAttribute('aria-expanded','false');
+  if(restoreFocus)menuToggle.focus();
+}
+menuToggle.addEventListener('click',()=>{
+  const opened=header.classList.toggle('menu-open');
+  menuToggle.setAttribute('aria-expanded',String(opened));
+});
+document.querySelectorAll('header a').forEach(link=>link.addEventListener('click',()=>closeMenu()));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&header.classList.contains('menu-open'))closeMenu(true);});
+document.addEventListener('click',event=>{if(!header.contains(event.target))closeMenu();});
+mobileLayout.addEventListener('change',()=>closeMenu());
 const NS='http://www.w3.org/2000/svg';
 // Confirmed products from formonenutrition.com; stages 2 and 4 use the same real SKU.
 const featuredProducts=[
@@ -94,14 +110,20 @@ function renderMobile(p){
 
   const athlete=document.querySelector('#mobile-athlete');
   const jarNode=document.querySelector('#mobile-protein-jar');
+  const athleteX=302+(1-personIn)*12;
+  const athleteY=176;
+  const tilt=-8-102*powder;
   if(athlete){
-    athlete.setAttribute('transform',`translate(${302+(1-personIn)*52} ${225-(1-personIn)*7})`);
-    athlete.style.opacity=String(.2+.8*personIn);
+    athlete.setAttribute('transform',`translate(${athleteX} ${athleteY})`);
+    athlete.style.opacity=String(.85+.15*personIn);
   }
   if(jarNode){
-    const tilt=-8-43*powder;
     jarNode.setAttribute('transform',`translate(-61 -14) rotate(${tilt})`);
   }
+  const lidOpen=clamp((p-.08)/.07)*(1-clamp((p-.52)/.08));
+  const lid=document.querySelector('#mobile-jar-lid');
+  lid.setAttribute('transform',`translate(0 ${-25*lidOpen})`);
+  lid.style.opacity=String(1-lidOpen);
 
   const powderPath=document.querySelector('#mobile-powder');
   const powderCloud=document.querySelector('#mobile-powder-cloud');
@@ -123,6 +145,14 @@ function renderMobile(p){
   const wave=document.querySelector('#mobile-wave');
   const swirl=document.querySelector('#mobile-swirl');
   const topY=790-355*mix;
+  // Струи начинаются у горлышка и крана и доходят до текущего уровня смеси.
+  const angle=tilt*Math.PI/180;
+  const mouthX=athleteX-61+36*Math.sin(angle);
+  const mouthY=athleteY-14-36*Math.cos(angle);
+  powderPath.setAttribute('d',`M${mouthX} ${mouthY}Q200 280 205 ${topY}`);
+  powderPath.setAttribute('stroke-width','6');
+  powderCloud.setAttribute('transform',`translate(0 ${topY-400})`);
+  ['#mobile-water','#mobile-water-hi'].forEach(sel=>document.querySelector(sel).setAttribute('d',`M65 276C67 309 135 325 145 ${topY}`));
   if(liquid){
     liquid.setAttribute('y',topY.toFixed(1));
     liquid.setAttribute('height',(792-topY).toFixed(1));
@@ -135,13 +165,6 @@ function renderMobile(p){
   if(swirl){
     swirl.style.opacity=String(clamp((mix-.12)/.45)*(1-clamp((p-.82)/.08)));
     swirl.setAttribute('transform',`translate(0 ${20*(1-mix)}) rotate(${mix*18} 195 650)`);
-  }
-
-  const copy=document.querySelector('.mobile-copy');
-  if(copy){
-    const copyFade=1-clamp((p-.12)/.16);
-    copy.style.opacity=String(copyFade);
-    copy.style.transform=`translateY(${-14*clamp((p-.08)/.18)}px)`;
   }
 
   const statusNum=document.querySelector('#mobile-status-num');
@@ -165,7 +188,8 @@ function renderMobile(p){
   reveal.style.visibility=fade>0?'visible':'hidden';
   reveal.style.pointerEvents=fade>.5?'auto':'none';
   document.querySelector('.progress i').style.width=p*100+'%';
-  showFeaturedProduct(Math.min(3,Math.floor(p/.22)));
+  // История про приготовление протеина сохраняет один продукт на всех этапах.
+  showFeaturedProduct(0);
   document.body.dataset.stage=fade===1?'5':status[0];
   document.body.dataset.progress=p.toFixed(4);
 }
@@ -240,9 +264,9 @@ function renderDesktop(p){
 
 function render(){
   const journey=document.querySelector('.journey');
-  const maxScroll=Math.max(1,journey.offsetHeight-innerHeight);
+  const maxScroll=Math.max(1,journey.offsetHeight-document.querySelector('.sticky').offsetHeight);
   const p=clamp(scrollY/maxScroll);
-  if(matchMedia('(max-width:700px)').matches)renderMobile(p);
+  if(mobileLayout.matches)renderMobile(p);
   else renderDesktop(p);
 }
 // No free-running timeline: every pose is a pure function of scroll position.
