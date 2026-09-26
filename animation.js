@@ -259,7 +259,10 @@ function blendColor(dark, light, amount) {
   return `rgb(${channels.join(", ")})`;
 }
 // Bild, Alternativtext und Produktkennung gemeinsam aktualisieren. (Изображение, альтернативный текст и тип товара обновляются вместе.)
+let displayedProductStage = -1;
 function showFeaturedProduct(stage) {
+  // Gleiche Inhalte nicht bei jedem Scrollbild neu einsetzen. (Не вставляем одинаковое содержимое заново на каждом кадре прокрутки.)
+  if (stage === displayedProductStage) return;
   const product = featuredProducts[stage];
   document.querySelector(".featured-product").dataset.flavor = product.flavor;
   document.querySelector(".mobile-featured-product").dataset.flavor =
@@ -279,6 +282,7 @@ function showFeaturedProduct(stage) {
         ? product.mobile
         : "ORIGINALPRODUKT VON FORMONE";
   }
+  displayedProductStage = stage;
 }
 // Die Zubereitungsphasen behalten ihre Reihenfolge, bekommen aber gleich lange Scrollabschnitte. (Этапы приготовления сохраняют порядок, но получают равные отрезки прокрутки.)
 const mobilePhases = [
@@ -290,6 +294,7 @@ const mobilePhases = [
 const mobileStoryEnd = 0.9;
 // Das erste Produkt ist schon beim Öffnen sichtbar; der Wechsel folgt früh, unabhängig von der Zubereitung. (Первый товар виден сразу; его смена происходит раньше и не зависит от приготовления.)
 const mobileProductStops = [0, 0.08, 0.35, 0.62];
+let mobileProductStage = 0;
 
 // Mobile Animation: Fortschritt von 0 bis 1 steuert Pulver, Wasser und Mischung. (Мобильная анимация: прогресс от 0 до 1 управляет порошком, водой и смесью.)
 function renderMobile(scrollProgress) {
@@ -311,10 +316,18 @@ function renderMobile(scrollProgress) {
     scrollProgress < mobileStoryEnd
       ? phase.start + (nextStart - phase.start) * phaseProgress
       : scrollProgress;
-  const productStage = mobileProductStops.reduce(
+  const requestedProductStage = mobileProductStops.reduce(
     (current, start, index) => (scrollProgress >= start ? index : current),
     0,
   );
+  // Kleine Rückbewegungen am Umschaltpunkt ignorieren; bewusstes Zurückscrollen bleibt möglich. (Игнорируем небольшие обратные движения у границы; обычная прокрутка назад сохраняется.)
+  const returnThreshold = mobileProductStops[mobileProductStage] - 0.012;
+  if (
+    requestedProductStage >= mobileProductStage ||
+    scrollProgress < returnThreshold
+  ) {
+    mobileProductStage = requestedProductStage;
+  }
 
   // Auf dem Smartphone erzählt der Shaker seine eigene Geschichte. (На телефоне используется отдельный сюжет с шейкером.)
   const personIn = clamp((p - 0.02) / 0.11);
@@ -461,7 +474,7 @@ function renderMobile(scrollProgress) {
   document.querySelector(".progress i").style.width =
     scrollProgress * 100 + "%";
   // Schon eine kurze erste Scrollbewegung zeigt das nächste Produkt. (Уже короткая первая прокрутка показывает следующий товар.)
-  showFeaturedProduct(productStage);
+  showFeaturedProduct(mobileProductStage);
   document.body.dataset.stage = fade === 1 ? "5" : status[0];
   document.body.dataset.progress = scrollProgress.toFixed(4);
 }

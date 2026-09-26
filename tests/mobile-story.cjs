@@ -155,6 +155,31 @@ async function main() {
     });
 
     await check(
+      "Kleine Bewegungen an der Wechselgrenze lassen das Produkt nicht flackern",
+      async () => {
+        for (const [boundary, previous, next] of [
+          [0.08, "formone-whey-chocolate.jpg", "formone-creatine-gummies.jpg"],
+          [0.35, "formone-creatine-gummies.jpg", "formone-whey-vanilla.jpg"],
+          [0.62, "formone-whey-vanilla.jpg", "formone-creatine-gummies.jpg"],
+        ]) {
+          await at(boundary - 0.03);
+          assert((await at(boundary + 0.005)).image.endsWith(next));
+          for (const offset of [-0.001, 0.001, -0.0005, 0.002, -0.001]) {
+            const state = await at(boundary + offset);
+            assert(
+              state.image.endsWith(next),
+              `Das Produkt springt bei ${boundary} zurück`,
+            );
+          }
+          assert(
+            (await at(boundary - 0.03)).image.endsWith(previous),
+            "Absichtliches Zurückscrollen muss weiterhin funktionieren",
+          );
+        }
+      },
+    );
+
+    await check(
       "Athlet bewegt die Beine und steht beim Eingießen still",
       async () => {
         const first = await at(0.055);
