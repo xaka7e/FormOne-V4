@@ -35,13 +35,22 @@ const container=document.querySelector('#walkers');
 // Short, broad silhouettes; each load and its supporting hands share one rig.
 function grip(x,y){return `<g class="grip"><ellipse cx="${x}" cy="${y}" rx="11" ry="8" fill="#687168" stroke="#b7ab8a" stroke-width="1.5"/><path d="M${x-7} ${y-3}q7-5 14 0M${x-6} ${y+1}v5m5-6v6m5-5v5" fill="none" stroke="#303936" stroke-width="1.4" stroke-linecap="round"/><path d="M${x-12} ${y+4}l-7 4" stroke="#8b846f" stroke-width="5" stroke-linecap="round"/></g>`;}
 function bentArm(d){return `<path d="${d}" fill="none" stroke="#b8ac8c" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="url(#body)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>`;}
+// У несущей руки две объёмные части и один локоть. Её плечо закреплено на торсе.
+function muscleSegment(a,b,root,bulge,tip){
+ const dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy),nx=-dy/length,ny=dx/length;
+ const point=(t,r)=>`${a[0]+dx*t+nx*r} ${a[1]+dy*t+ny*r}`;
+ return `<path d="M${point(0,root)}Q${point(.38,bulge)} ${point(1,tip)}Q${point(1.1,0)} ${point(1,-tip)}Q${point(.35,-bulge)} ${point(0,-root)}Q${point(-.12,0)} ${point(0,root)}Z" fill="url(#body)" stroke="#a8a38c" stroke-width="1.6"/><path d="M${point(.18,-root*.58)}Q${point(.46,-bulge*.6)} ${point(.77,-tip*.7)}" fill="none" stroke="#788278" stroke-opacity=".65" stroke-width="2"/>`;
+}
+function carryArm(shoulder,elbow,wrist){
+ return `<g class="carry-arm">${muscleSegment(shoulder,elbow,18,27,12)}<circle cx="${elbow[0]}" cy="${elbow[1]}" r="12" fill="#303b3d" stroke="#8a9282" stroke-width="1.2"/>${muscleSegment(elbow,wrist,13,22,8)}<path d="M${shoulder[0]-13} ${shoulder[1]+5}q13-11 25 1" fill="none" stroke="#8c9687" stroke-width="2"/></g>`;
+}
 function load(i){
- // Both palms sit beneath the WHEY base; the entire load moves as one group.
- if(i===0)return `<g transform="rotate(-3 0 -196)">${jar('WHEY',0,-238,1.24)}${bentArm('M-60 -213L-108 -170L-99 -113L-37 -95')}${bentArm('M60 -213L108 -170L99 -113L37 -95')}${grip(-37,-95)}${grip(37,-95)}</g>`;
- // Character's right shoulder is on the image's right: elbow and palm support the jar from underneath.
- if(i===1)return `<g transform="rotate(-7 99 -230)">${jar('BCAA',99,-330,1.05)}${bentArm('M56 -212L133 -169L130 -190L110 -211')}${grip(110,-211)}</g>`;
- // ENZYMES stays outside the left side of the torso, with its base on the open palm.
- if(i===2)return `<g transform="rotate(-8 -96 -174)">${jar('ENZYMES',-97,-272,.97)}${bentArm('M-57 -211L-147 -191L-142 -165L-100 -157')}${grip(-100,-157)}</g>`;
+ // Груз ниже груди: видны голова, плечи и верх торса; ладони находятся под дном.
+ if(i===0)return `${carryArm([-55,-210],[-72,-142],[-1,-79])}${carryArm([55,-210],[91,-145],[52,-79])}${jar('WHEY',26,-173,.82)}${grip(-1,-79)}${grip(52,-79)}`;
+ // Правое плечо несёт банку, предплечье поднимается от локтя к её основанию.
+ if(i===1)return `${carryArm([55,-211],[116,-161],[102,-222])}${jar('BCAA',76,-311,.77)}${grip(102,-222)}`;
+ // Локоть ближе к торсу, предплечье направлено наружу и вверх к банке.
+ if(i===2)return `${carryArm([-55,-210],[-70,-144],[-108,-171])}${jar('ENZYMES',-108,-245,.65)}${grip(-108,-171)}`;
  return `<path d="M-65 -100L-86 -414" stroke="#c2b594" stroke-width="6"/><path class="flag" fill="#172226" stroke="#c7b181" stroke-width="2"/><path class="flag-fold flag-fold-a" fill="none" stroke="#d5c49a" stroke-opacity=".23" stroke-width="5"/><path class="flag-fold flag-fold-b" fill="none" stroke="#65706a" stroke-opacity=".55" stroke-width="6"/><text class="flag-word" x="34" y="-340" text-anchor="middle" fill="#eee3c9" font-size="25" letter-spacing="2">FORMONE</text>${bentArm('M-54 -207Q-91 -188 -71 -153')}${grip(-71,-153)}`;
 }
 for(let i=3;i>=0;i--){let g=document.createElementNS(NS,'g');g.id='walker-'+i;g.dataset.carry=['two-hands-front','right-shoulder','outside-underhand','oversized-flag'][i];g.innerHTML=`<ellipse cy="8" rx="79" ry="12" fill="#0b1114" opacity=".5"/><g class="squat" transform="scale(1.12 .76)">${leg('left')}${leg('right')}<g class="upper"><path d="M-59 -215Q-47 -242 0 -231Q44 -242 61 -211L39 -153 35 -112Q0 -94 -35 -113L-39 -153Z" fill="url(#body)" stroke="#b8ac8c" stroke-width="2"/><path d="M-49 -207Q-29 -218 -4 -201L-10 -159 -31 -147M49 -207Q29 -218 4 -201L10 -159 31 -147" fill="#293538" stroke="#606e67" stroke-width="2"/><path d="M0 -209V-137M-31 -138Q0 -125 31 -138M-31 -121Q0 -111 31 -121" fill="none" stroke="#101a1e" stroke-width="4"/><g transform="translate(0 -237) scale(1.32 1.25) translate(0 237)"><path d="M-24 -260Q-21 -286 5 -286Q27 -283 27 -258L19 -237 -16 -237Z" fill="url(#body)" stroke="#9da18e" stroke-width="2"/><path d="M-26 -263Q-30 -294 7 -293Q31 -291 29 -271L38 -267 23 -262Z" fill="#1c282c" stroke="#abb099" stroke-width="2"/><path d="M-16 -271L-10 -249M-1 -275L3 -250" stroke="#56635b" stroke-width="2"/></g><path d="M-34 -233Q0 -248 34 -233L26 -218Q0 -229 -26 -218Z" fill="#18252a" stroke="#727e71" stroke-width="2"/><text x="${i===0?-17:0}" y="-177" fill="#939b87" opacity=".75" font-size="25" font-family="Arial" font-style="italic" font-weight="bold" text-anchor="middle">F1</text>${i===1?arm('left'):i===2?arm('right'):i===3?arm('right'):''}<g class="cargo">${load(i)}</g></g></g>`;container.appendChild(g);}
@@ -50,9 +59,9 @@ let seed=12;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/42949
 let terrain='';for(let i=0;i<95;i++){let x=rand()*1600,y=450+rand()*500,w=8+rand()*50;terrain+=`<path d="M${x} ${y}l${w*.3} ${-w*.3} ${w*.7} ${w*.15} ${w*.3} ${w*.3}Z" fill="${i%3?'#202827':'#51554b'}" opacity=".7"/>`;}
 for(let i=0;i<7;i++){let x=100+i*157,y=854-i*62;terrain+=`<ellipse cx="${x}" cy="${y}" rx="50" ry="35" fill="url(#light)"/><path d="M${x} ${y}v-17" stroke="#706851" stroke-width="3"/><circle cx="${x}" cy="${y-18}" r="4" fill="#ffe1a0"/>`;}
 document.querySelector('#terrain').innerHTML=terrain;
-document.querySelector('.cards').innerHTML=[featuredProducts[0],featuredProducts[1],featuredProducts[2]].map((product,i)=>`<article class="card"><span class="tag">FORMONE / 0${i+1}</span><img src="${product.image}" alt="${product.alt}" loading="lazy"><h3>${product.title}</h3><p>${product.copy}</p></article>`).join('');
+document.querySelector('.cards').innerHTML=[featuredProducts[0],featuredProducts[1],featuredProducts[2]].map((product,i)=>`<article class="card"><span class="tag">FORMONE / 0${i+1}</span><div class="card-visual product-art" data-flavor="${product.flavor}"><img src="${product.image}" alt="${product.alt}" loading="lazy"></div><h3>${product.title}</h3><p>${product.copy}</p></article>`).join('');
 const rigs=[0,1,2,3].map(i=>document.querySelector('#walker-'+i));
-const starts=[[360,843,1.20],[650,702,.94],[867,584,.73],[1036,518,.53]];
+const starts=[[420,843,1.20],[680,702,.94],[895,584,.73],[1050,518,.53]];
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 function showFeaturedProduct(stage){
   const product=featuredProducts[stage];
@@ -189,9 +198,8 @@ function renderDesktop(p){
       }
     });
 
-    // The jars/flag now stay much steadier in the hands; no nervous wobble.
-    const cargoRot=wave*(i===0?.65:i===1?.9:i===2?1.05:1.2);
-    g.querySelector('.cargo').setAttribute('transform',`rotate(${cargoRot} 0 -210) translate(0 ${wave*.8})`);
+    // Руки с грузом движутся вместе с корпусом, без смещения плечевых суставов.
+    g.querySelector('.cargo').setAttribute('transform',i<3?'translate(0 0)':`rotate(${wave*1.2} -54 -207)`);
   });
 
   const w=Math.sin(phase*1.15)*17;
@@ -238,4 +246,4 @@ function render(){
   else renderDesktop(p);
 }
 // No free-running timeline: every pose is a pure function of scroll position.
-let queued=false;function update(){if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;render();});}}addEventListener('scroll',update,{passive:true});addEventListener('resize',update);document.querySelectorAll('.dots button').forEach((b,i)=>b.addEventListener('click',()=>scrollTo(0,i*.22*(document.querySelector('.journey').offsetHeight-innerHeight))));render();
+let queued=false;function update(){if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;render();});}}addEventListener('scroll',update,{passive:true});addEventListener('resize',update);document.querySelectorAll('.dots button').forEach((b,i)=>b.addEventListener('click',()=>scrollTo(0,(i===0?0:i*.22+.003)*(document.querySelector('.journey').offsetHeight-innerHeight))));render();
