@@ -4,17 +4,18 @@ Deutschsprachiger Shop-Prototyp mit einer scrollgesteuerten Startszene. (Нем�
 
 ## Wo ändere ich was? (Где что менять?)
 
-| Datei / Bereich (Файл / блок)                | Aufgabe (Назначение)                                                                                                                                             |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index.html`                                 | Seitenaufbau, Navigation, SVG-Szenen und feste Texte. (Структура страницы, навигация, SVG-сцены и постоянные тексты.)                                            |
-| `styles.css`                                 | Farben, Schrift, Abstände und Bildschirmgrößen. Die mobilen Regeln stehen am Ende. (Цвета, шрифты, отступы и размеры экрана. Мобильные стили находятся в конце.) |
-| `animation.js` → `featuredProducts`          | Produktnamen, Beschreibungen, Eigenschaften, Bilder und Alternativtexte. (Названия, описания, характеристики, изображения и альтернативные тексты товаров.)      |
-| `animation.js` → `jar`, `leg`, `arm`, `load` | Zeichnung der Dosen, Athleten und Trageposen. (Отрисовка банок, атлетов и поз с грузом.)                                                                         |
-| `animation.js` → `renderMobile`              | Protein, Wasser, Füllhöhe und Status des Shakers. (Протеин, вода, уровень смеси и состояние шейкера.)                                                            |
-| `animation.js` → `renderDesktop`             | Laufbewegung, Fahne und vier Produktabschnitte. (Ходьба, флаг и четыре товарных этапа.)                                                                          |
-| `animation.js` → `render`, `update`          | Umrechnung der Scrollposition in den Animationsfortschritt. (Преобразование прокрутки в прогресс анимации.)                                                      |
-| `assets/`                                    | Originalverpackungen und Hintergründe der Produktkarten. (Оригинальные упаковки и фоны карточек товаров.)                                                        |
-| `robots.txt`, `vercel.json`                  | Schutz vor Suchmaschinenindexierung während der Prototypphase. (Запрет индексации поисковиками на этапе прототипа.)                                              |
+| Datei / Bereich (Файл / блок)                    | Aufgabe (Назначение)                                                                                                                                             |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`                                     | Seitenaufbau, Navigation, SVG-Szenen und feste Texte. (Структура страницы, навигация, SVG-сцены и постоянные тексты.)                                            |
+| `index.html` → `gym-wall-art`, `gym-wall-slogan` | Graffiti an der Seitenwand und der darüber gemalte Schriftzug. (Граффити на боковой стене и надпись поверх него.)                                                |
+| `styles.css`                                     | Farben, Schrift, Abstände und Bildschirmgrößen. Die mobilen Regeln stehen am Ende. (Цвета, шрифты, отступы и размеры экрана. Мобильные стили находятся в конце.) |
+| `animation.js` → `featuredProducts`              | Produktnamen, Beschreibungen, Eigenschaften, Bilder und Alternativtexte. (Названия, описания, характеристики, изображения и альтернативные тексты товаров.)      |
+| `animation.js` → `jar`, `leg`, `arm`, `load`     | Zeichnung der Dosen, Athleten und Trageposen. (Отрисовка банок, атлетов и поз с грузом.)                                                                         |
+| `animation.js` → `renderMobile`                  | Protein, Wasser, Füllhöhe und Status des Shakers. (Протеин, вода, уровень смеси и состояние шейкера.)                                                            |
+| `animation.js` → `renderDesktop`                 | Laufbewegung, Fahne und vier Produktabschnitte. (Ходьба, флаг и четыре товарных этапа.)                                                                          |
+| `animation.js` → `render`, `update`              | Umrechnung der Scrollposition in den Animationsfortschritt. (Преобразование прокрутки в прогресс анимации.)                                                      |
+| `assets/`                                        | Originalverpackungen und Hintergründe der Produktkarten. (Оригинальные упаковки и фоны карточек товаров.)                                                        |
+| `robots.txt`, `vercel.json`                      | Schutz vor Suchmaschinenindexierung während der Prototypphase. (Запрет индексации поисковиками на этапе прототипа.)                                              |
 
 ## Text und Kommentare (Текст и комментарии)
 
