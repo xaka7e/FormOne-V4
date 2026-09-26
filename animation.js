@@ -280,10 +280,35 @@ function showFeaturedProduct(stage) {
         : "ORIGINALPRODUKT VON FORMONE";
   }
 }
+// Die Zubereitungsphasen behalten ihre Reihenfolge, bekommen aber gleich lange Scrollabschnitte. (Этапы приготовления сохраняют порядок, но получают равные отрезки прокрутки.)
+const mobilePhases = [
+  { start: 0, label: "PROTEIN HINZUFÜGEN" },
+  { start: 0.27, label: "WASSER HINZUFÜGEN" },
+  { start: 0.46, label: "MISCHEN" },
+  { start: 0.72, label: "FERTIG" },
+];
+const mobileStoryEnd = 0.9;
+
 // Mobile Animation: Fortschritt von 0 bis 1 steuert Pulver, Wasser und Mischung. (Мобильная анимация: прогресс от 0 до 1 управляет порошком, водой и смесью.)
-function renderMobile(p) {
+function renderMobile(scrollProgress) {
   const scene = document.querySelector(".mobile-scene");
   if (!scene) return;
+
+  // Vier gleich lange Produktabschnitte; die Zubereitung läuft jeweils im passenden Tempo. (Четыре равных товарных этапа; приготовление подстраивается под их темп.)
+  const phaseDistance = mobileStoryEnd / mobilePhases.length;
+  const stage = Math.min(
+    mobilePhases.length - 1,
+    Math.floor(scrollProgress / phaseDistance),
+  );
+  const phase = mobilePhases[stage];
+  const nextStart = mobilePhases[stage + 1]?.start ?? mobileStoryEnd;
+  const phaseProgress = clamp(
+    (scrollProgress - stage * phaseDistance) / phaseDistance,
+  );
+  const p =
+    scrollProgress < mobileStoryEnd
+      ? phase.start + (nextStart - phase.start) * phaseProgress
+      : scrollProgress;
 
   // Auf dem Smartphone erzählt der Shaker seine eigene Geschichte. (На телефоне используется отдельный сюжет с шейкером.)
   const personIn = clamp((p - 0.02) / 0.11);
@@ -298,7 +323,7 @@ function renderMobile(p) {
   const mix = clamp((p - 0.35) / 0.38);
   const dilution = smooth(clamp((p - 0.35) / 0.32));
   const final = clamp((p - 0.7) / 0.12);
-  const fade = clamp((p - 0.9) / 0.075);
+  const fade = clamp((scrollProgress - mobileStoryEnd) / 0.075);
 
   const athlete = document.querySelector("#mobile-athlete");
   const jarNode = document.querySelector("#mobile-protein-jar");
@@ -408,10 +433,7 @@ function renderMobile(p) {
 
   const statusNum = document.querySelector("#mobile-status-num");
   const statusLabel = document.querySelector("#mobile-status-label");
-  let status = ["01", "PROTEIN HINZUFÜGEN"];
-  if (p >= 0.27) status = ["02", "WASSER HINZUFÜGEN"];
-  if (p >= 0.46) status = ["03", "MISCHEN"];
-  if (p >= 0.72) status = ["04", "FERTIG"];
+  const status = [String(stage + 1).padStart(2, "0"), phase.label];
   if (statusNum) statusNum.textContent = status[0];
   if (statusLabel) statusLabel.textContent = status[1];
 
@@ -430,11 +452,12 @@ function renderMobile(p) {
   reveal.style.opacity = String(fade);
   reveal.style.visibility = fade > 0 ? "visible" : "hidden";
   reveal.style.pointerEvents = fade > 0.5 ? "auto" : "none";
-  document.querySelector(".progress i").style.width = p * 100 + "%";
+  document.querySelector(".progress i").style.width =
+    scrollProgress * 100 + "%";
   // Jeder Zubereitungsschritt zeigt einen Produktabschnitt wie auf dem Desktop. (Каждый этап приготовления переключает товарный блок, как на компьютере.)
-  showFeaturedProduct(Number(status[0]) - 1);
+  showFeaturedProduct(stage);
   document.body.dataset.stage = fade === 1 ? "5" : status[0];
-  document.body.dataset.progress = p.toFixed(4);
+  document.body.dataset.progress = scrollProgress.toFixed(4);
 }
 
 // Desktop-Animation: Weg, Schritte und Produktwechsel. (Анимация на компьютере: путь, шаги и смена товара.)

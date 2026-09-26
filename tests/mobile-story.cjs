@@ -72,6 +72,33 @@ async function main() {
       }
     }
 
+    await check(
+      "Alle Produkte erhalten gleich viel Scrollstrecke",
+      async () => {
+        const boundaries = [0];
+        let previous = (await at(0)).image;
+        for (let step = 1; step < 90; step++) {
+          const progress = step / 100;
+          const current = (await at(progress)).image;
+          if (current !== previous) boundaries.push(progress);
+          previous = current;
+        }
+        boundaries.push(0.9);
+        assert.equal(
+          boundaries.length,
+          5,
+          "Es müssen vier Produktabschnitte sichtbar sein",
+        );
+        const lengths = boundaries
+          .slice(1)
+          .map((end, i) => end - boundaries[i]);
+        assert(
+          Math.max(...lengths) - Math.min(...lengths) <= 0.021,
+          `Ungleiche Scrollstrecken: ${lengths.map((length) => Math.round(length * 100)).join(", ")}%`,
+        );
+      },
+    );
+
     await check("Produktkarte folgt den vier Scrollabschnitten", async () => {
       for (const [p, image, title, detail] of [
         [
@@ -147,7 +174,7 @@ async function main() {
       "Dunkles Pulver sammelt sich vor dem Wasser und wird beim Mischen heller",
       async () => {
         const empty = await at(0);
-        const dry = await at(0.25);
+        const dry = await at(0.205);
         assert(
           dry.height > empty.height + 30,
           "Vor dem Wasser fehlt die Pulverschicht",
@@ -164,7 +191,7 @@ async function main() {
           ready.brightness,
           "Der fertige Shake wird wieder dunkler",
         );
-        const reverse = await at(0.25);
+        const reverse = await at(0.205);
         assert.equal(reverse.height, dry.height);
         assert.equal(reverse.brightness, dry.brightness);
       },
