@@ -288,13 +288,15 @@ const mobilePhases = [
   { start: 0.72, label: "FERTIG" },
 ];
 const mobileStoryEnd = 0.9;
+// Das erste Produkt ist schon beim Öffnen sichtbar; der Wechsel folgt früh, unabhängig von der Zubereitung. (Первый товар виден сразу; его смена происходит раньше и не зависит от приготовления.)
+const mobileProductStops = [0, 0.08, 0.35, 0.62];
 
 // Mobile Animation: Fortschritt von 0 bis 1 steuert Pulver, Wasser und Mischung. (Мобильная анимация: прогресс от 0 до 1 управляет порошком, водой и смесью.)
 function renderMobile(scrollProgress) {
   const scene = document.querySelector(".mobile-scene");
   if (!scene) return;
 
-  // Vier gleich lange Produktabschnitte; die Zubereitung läuft jeweils im passenden Tempo. (Четыре равных товарных этапа; приготовление подстраивается под их темп.)
+  // Die Zubereitung behält ihr Tempo, während die Produktkarten separat wechseln. (Приготовление сохраняет свой темп, а карточки товаров переключаются отдельно.)
   const phaseDistance = mobileStoryEnd / mobilePhases.length;
   const stage = Math.min(
     mobilePhases.length - 1,
@@ -309,6 +311,10 @@ function renderMobile(scrollProgress) {
     scrollProgress < mobileStoryEnd
       ? phase.start + (nextStart - phase.start) * phaseProgress
       : scrollProgress;
+  const productStage = mobileProductStops.reduce(
+    (current, start, index) => (scrollProgress >= start ? index : current),
+    0,
+  );
 
   // Auf dem Smartphone erzählt der Shaker seine eigene Geschichte. (На телефоне используется отдельный сюжет с шейкером.)
   const personIn = clamp((p - 0.02) / 0.11);
@@ -454,8 +460,8 @@ function renderMobile(scrollProgress) {
   reveal.style.pointerEvents = fade > 0.5 ? "auto" : "none";
   document.querySelector(".progress i").style.width =
     scrollProgress * 100 + "%";
-  // Jeder Zubereitungsschritt zeigt einen Produktabschnitt wie auf dem Desktop. (Каждый этап приготовления переключает товарный блок, как на компьютере.)
-  showFeaturedProduct(stage);
+  // Schon eine kurze erste Scrollbewegung zeigt das nächste Produkt. (Уже короткая первая прокрутка показывает следующий товар.)
+  showFeaturedProduct(productStage);
   document.body.dataset.stage = fade === 1 ? "5" : status[0];
   document.body.dataset.progress = scrollProgress.toFixed(4);
 }

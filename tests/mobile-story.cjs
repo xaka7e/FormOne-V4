@@ -73,28 +73,33 @@ async function main() {
     }
 
     await check(
-      "Alle Produkte erhalten gleich viel Scrollstrecke",
+      "Erstes Produkt wechselt schon nach kurzem Scrollen",
       async () => {
-        const boundaries = [0];
-        let previous = (await at(0)).image;
-        for (let step = 1; step < 90; step++) {
-          const progress = step / 100;
-          const current = (await at(progress)).image;
-          if (current !== previous) boundaries.push(progress);
-          previous = current;
-        }
-        boundaries.push(0.9);
-        assert.equal(
-          boundaries.length,
-          5,
-          "Es müssen vier Produktabschnitte sichtbar sein",
+        await at(0);
+        await page.mouse.wheel(0, 140);
+        await page.waitForFunction(
+          () => Number(document.body.dataset.progress) > 0.08,
         );
-        const lengths = boundaries
-          .slice(1)
-          .map((end, i) => end - boundaries[i]);
+        const image = page.locator("#mobile-featured-image");
         assert(
-          Math.max(...lengths) - Math.min(...lengths) <= 0.021,
-          `Ungleiche Scrollstrecken: ${lengths.map((length) => Math.round(length * 100)).join(", ")}%`,
+          (await image.getAttribute("src")).endsWith(
+            "formone-creatine-gummies.jpg",
+          ),
+          "Nach 140 Pixeln steht noch immer das erste Produkt",
+        );
+        assert(
+          await image.evaluate(async (img) => {
+            await img.decode();
+            return img.naturalWidth > 0;
+          }),
+        );
+        assert(
+          (await at(0.16)).image.endsWith("formone-creatine-gummies.jpg"),
+          "Das zweite Produkt wird zu schnell übersprungen",
+        );
+        assert(
+          (await at(0)).image.endsWith("formone-whey-chocolate.jpg"),
+          "Zurückscrollen zeigt das erste Produkt nicht wieder",
         );
       },
     );
