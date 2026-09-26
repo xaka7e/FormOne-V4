@@ -1,7 +1,14 @@
 'use strict';
 const NS='http://www.w3.org/2000/svg';
-const labels=['Сывороточный протеин','BCAA','Пищевые ферменты','Премиум качество'];
-const descriptions=['Основа твоего ежедневного рациона.','Продолжай движение. Держи свой ритм.','Продуманный подход к твоему рациону.','Внимание к каждой детали. На каждом шаге.'];
+// Confirmed products from formonenutrition.com; stages 2 and 4 use the same real SKU.
+const featuredProducts=[
+  {title:'Протеин · шоколад',copy:'Premium Whey Protein Chocolate · 1 000 г.',image:'assets/formone-whey-chocolate.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Chocolate',mobile:'ШОКОЛАДНЫЙ ПРОТЕИН'},
+  {title:'Креатин · яблоко',copy:'Creatine Gummies · 90 пастилок, вкус яблока.',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies Apple',mobile:'КРЕАТИН FORMONE'},
+  {title:'Протеин · ваниль',copy:'Premium Whey Protein Vanilla · 1 000 г.',image:'assets/formone-whey-vanilla.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Vanilla',mobile:'ВАНИЛЬНЫЙ ПРОТЕИН'},
+  {title:'Креатин · яблоко',copy:'Creatine Gummies · 90 пастилок. В каталоге указано: без сахара, веганский продукт.',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies Apple',mobile:'КРЕАТИН FORMONE'}
+];
+const labels=featuredProducts.map(product=>product.title);
+const descriptions=featuredProducts.map(product=>product.copy);
 const productNames=['WHEY','BCAA','ENZYMES'];
 function jar(name,x=-100,y=-176,s=1){
   const small=name==='ENZYMES';
@@ -29,21 +36,35 @@ const container=document.querySelector('#walkers');
 function grip(x,y){return `<g class="grip"><ellipse cx="${x}" cy="${y}" rx="11" ry="8" fill="#687168" stroke="#b7ab8a" stroke-width="1.5"/><path d="M${x-7} ${y-3}q7-5 14 0M${x-6} ${y+1}v5m5-6v6m5-5v5" fill="none" stroke="#303936" stroke-width="1.4" stroke-linecap="round"/><path d="M${x-12} ${y+4}l-7 4" stroke="#8b846f" stroke-width="5" stroke-linecap="round"/></g>`;}
 function bentArm(d){return `<path d="${d}" fill="none" stroke="#b8ac8c" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="url(#body)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>`;}
 function load(i){
- if(i===0)return `<g transform="rotate(-3 48 -196)">${jar('WHEY',48,-238,1.34)}</g>${bentArm('M-52 -205Q-73 -165 -43 -128L-4 -106')}${bentArm('M54 -208Q112 -191 116 -145L101 -108')}${grip(-4,-106)}${grip(101,-108)}`;
- if(i===1)return `<g transform="rotate(8 -68 -161)">${jar('BCAA',-69,-204,1.08)}</g>${bentArm('M-54 -208Q-99 -224 -111 -184L-110 -148')}${bentArm('M52 -207Q66 -154 18 -136L-34 -129')}${grip(-110,-148)}${grip(-34,-129)}`;
- if(i===2)return `<g transform="rotate(58 50 -246)">${jar('ENZYMES',50,-294,1.12)}</g>${bentArm('M52 -211Q96 -205 105 -249L85 -269')}${grip(85,-269)}`;
- return `<path d="M-65 -100L-86 -414" stroke="#c2b594" stroke-width="6"/><path class="flag" fill="#172226" stroke="#c7b181" stroke-width="2"/><text x="-56" y="-349" fill="#eee3c9" font-size="25" letter-spacing="3" transform="rotate(11 -56 -349)">FORMONE</text>${bentArm('M-54 -207Q-91 -188 -71 -153')}${grip(-71,-153)}`;
+ // Both palms sit beneath the WHEY base; the entire load moves as one group.
+ if(i===0)return `<g transform="rotate(-3 48 -196)">${jar('WHEY',48,-238,1.34)}${bentArm('M-52 -205Q-83 -150 -49 -116Q-27 -92 8 -82')}${bentArm('M54 -208Q126 -180 124 -127Q121 -96 91 -82')}${grip(8,-82)}${grip(91,-82)}</g>`;
+ // Character's right shoulder is on the image's right: elbow and palm support the jar from underneath.
+ if(i===1)return `<g transform="rotate(-7 72 -230)">${jar('BCAA',72,-330,1.05)}${bentArm('M55 -210Q119 -184 119 -220L94 -211')}${grip(94,-211)}</g>`;
+ // ENZYMES stays outside the left side of the torso, with its base on the open palm.
+ if(i===2)return `<g transform="rotate(-8 -96 -174)">${jar('ENZYMES',-97,-272,.97)}${bentArm('M-55 -209Q-137 -204 -128 -172L-100 -157')}${grip(-100,-157)}</g>`;
+ return `<path d="M-65 -100L-86 -414" stroke="#c2b594" stroke-width="6"/><path class="flag" fill="#172226" stroke="#c7b181" stroke-width="2"/><path class="flag-fold flag-fold-a" fill="none" stroke="#d5c49a" stroke-opacity=".23" stroke-width="5"/><path class="flag-fold flag-fold-b" fill="none" stroke="#65706a" stroke-opacity=".55" stroke-width="6"/><text class="flag-word" x="-56" y="-349" fill="#eee3c9" font-size="25" letter-spacing="3" transform="rotate(11 -56 -349)">FORMONE</text>${bentArm('M-54 -207Q-91 -188 -71 -153')}${grip(-71,-153)}`;
 }
-for(let i=3;i>=0;i--){let g=document.createElementNS(NS,'g');g.id='walker-'+i;g.dataset.carry=['two-hands-front','side-hug','shoulder','oversized-flag'][i];g.innerHTML=`<ellipse cy="8" rx="79" ry="12" fill="#0b1114" opacity=".5"/><g class="squat" transform="scale(1.12 .76)">${leg('left')}${leg('right')}<g class="upper"><path d="M-59 -215Q-47 -242 0 -231Q44 -242 61 -211L39 -153 35 -112Q0 -94 -35 -113L-39 -153Z" fill="url(#body)" stroke="#b8ac8c" stroke-width="2"/><path d="M-49 -207Q-29 -218 -4 -201L-10 -159 -31 -147M49 -207Q29 -218 4 -201L10 -159 31 -147" fill="#293538" stroke="#606e67" stroke-width="2"/><path d="M0 -209V-137M-31 -138Q0 -125 31 -138M-31 -121Q0 -111 31 -121" fill="none" stroke="#101a1e" stroke-width="4"/><g transform="translate(0 -237) scale(1.32 1.25) translate(0 237)"><path d="M-24 -260Q-21 -286 5 -286Q27 -283 27 -258L19 -237 -16 -237Z" fill="url(#body)" stroke="#9da18e" stroke-width="2"/><path d="M-26 -263Q-30 -294 7 -293Q31 -291 29 -271L38 -267 23 -262Z" fill="#1c282c" stroke="#abb099" stroke-width="2"/><path d="M-16 -271L-10 -249M-1 -275L3 -250" stroke="#56635b" stroke-width="2"/></g><path d="M-34 -233Q0 -248 34 -233L26 -218Q0 -229 -26 -218Z" fill="#18252a" stroke="#727e71" stroke-width="2"/><text x="${i===0?-17:0}" y="-177" fill="#939b87" opacity=".75" font-size="25" font-family="Arial" font-style="italic" font-weight="bold" text-anchor="middle">F1</text>${i===2?arm('left'):i===3?arm('right'):''}<g class="cargo">${load(i)}</g></g></g>`;container.appendChild(g);}
+for(let i=3;i>=0;i--){let g=document.createElementNS(NS,'g');g.id='walker-'+i;g.dataset.carry=['two-hands-front','right-shoulder','outside-underhand','oversized-flag'][i];g.innerHTML=`<ellipse cy="8" rx="79" ry="12" fill="#0b1114" opacity=".5"/><g class="squat" transform="scale(1.12 .76)">${leg('left')}${leg('right')}<g class="upper"><path d="M-59 -215Q-47 -242 0 -231Q44 -242 61 -211L39 -153 35 -112Q0 -94 -35 -113L-39 -153Z" fill="url(#body)" stroke="#b8ac8c" stroke-width="2"/><path d="M-49 -207Q-29 -218 -4 -201L-10 -159 -31 -147M49 -207Q29 -218 4 -201L10 -159 31 -147" fill="#293538" stroke="#606e67" stroke-width="2"/><path d="M0 -209V-137M-31 -138Q0 -125 31 -138M-31 -121Q0 -111 31 -121" fill="none" stroke="#101a1e" stroke-width="4"/><g transform="translate(0 -237) scale(1.32 1.25) translate(0 237)"><path d="M-24 -260Q-21 -286 5 -286Q27 -283 27 -258L19 -237 -16 -237Z" fill="url(#body)" stroke="#9da18e" stroke-width="2"/><path d="M-26 -263Q-30 -294 7 -293Q31 -291 29 -271L38 -267 23 -262Z" fill="#1c282c" stroke="#abb099" stroke-width="2"/><path d="M-16 -271L-10 -249M-1 -275L3 -250" stroke="#56635b" stroke-width="2"/></g><path d="M-34 -233Q0 -248 34 -233L26 -218Q0 -229 -26 -218Z" fill="#18252a" stroke="#727e71" stroke-width="2"/><text x="${i===0?-17:0}" y="-177" fill="#939b87" opacity=".75" font-size="25" font-family="Arial" font-style="italic" font-weight="bold" text-anchor="middle">F1</text>${i===1?arm('left'):i===2?arm('right'):i===3?arm('right'):''}<g class="cargo">${load(i)}</g></g></g>`;container.appendChild(g);}
 // Deterministic terrain avoids assets and remains identical when scrolling back.
 let seed=12;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;}
 let terrain='';for(let i=0;i<95;i++){let x=rand()*1600,y=450+rand()*500,w=8+rand()*50;terrain+=`<path d="M${x} ${y}l${w*.3} ${-w*.3} ${w*.7} ${w*.15} ${w*.3} ${w*.3}Z" fill="${i%3?'#202827':'#51554b'}" opacity=".7"/>`;}
 for(let i=0;i<7;i++){let x=100+i*157,y=854-i*62;terrain+=`<ellipse cx="${x}" cy="${y}" rx="50" ry="35" fill="url(#light)"/><path d="M${x} ${y}v-17" stroke="#706851" stroke-width="3"/><circle cx="${x}" cy="${y-18}" r="4" fill="#ffe1a0"/>`;}
 document.querySelector('#terrain').innerHTML=terrain;
-document.querySelector('.cards').innerHTML=productNames.map((n,i)=>`<article class="card"><span class="tag">FORMONE / 0${i+1}</span><svg viewBox="-100 -20 200 170" aria-label="Банка ${n}"><defs>${document.querySelector('#world defs').innerHTML}</defs>${jar(n,0,5,1.1)}</svg><h3>${labels[i]}</h3><p>${descriptions[i]}</p></article>`).join('');
+document.querySelector('.cards').innerHTML=[featuredProducts[0],featuredProducts[1],featuredProducts[2]].map((product,i)=>`<article class="card"><span class="tag">FORMONE / 0${i+1}</span><img src="${product.image}" alt="${product.alt}" loading="lazy"><h3>${product.title}</h3><p>${product.copy}</p></article>`).join('');
 const rigs=[0,1,2,3].map(i=>document.querySelector('#walker-'+i));
 const starts=[[360,843,1.20],[650,702,.94],[867,584,.73],[1036,518,.53]];
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+function showFeaturedProduct(stage){
+  const product=featuredProducts[stage];
+  for(const prefix of ['','mobile-']){
+    const image=document.querySelector(`#${prefix}featured-image`);
+    if(!image)continue;
+    if(image.getAttribute('src')!==product.image)image.setAttribute('src',product.image);
+    image.alt=product.alt;
+    const note=document.querySelector(`#${prefix}featured-note`);
+    if(note)note.textContent=prefix?product.mobile:'ОРИГИНАЛЬНЫЙ ПРОДУКТ FORMONE';
+  }
+}
 function renderMobile(p){
   const scene=document.querySelector('.mobile-scene');
   if(!scene)return;
@@ -133,6 +154,7 @@ function renderMobile(p){
   reveal.style.visibility=fade>0?'visible':'hidden';
   reveal.style.pointerEvents=fade>.5?'auto':'none';
   document.querySelector('.progress i').style.width=p*100+'%';
+  showFeaturedProduct(Math.min(3,Math.floor(p/.22)));
   document.body.dataset.stage=fade===1?'5':status[0];
   document.body.dataset.progress=p.toFixed(4);
 }
@@ -170,13 +192,18 @@ function renderDesktop(p){
     g.querySelector('.cargo').setAttribute('transform',`rotate(${cargoRot} 0 -210) translate(0 ${wave*.8})`);
   });
 
-  const w=Math.sin(phase*1.15)*11;
-  document.querySelector('.flag').setAttribute('d',`M-86 -410Q-15 ${-431+w} 150 ${-375-w}L143 ${-270-w}Q1 ${-325+w} -80 -303Z`);
+  const w=Math.sin(phase*1.15)*17;
+  const edge=Math.sin(phase*1.15+1.3)*22;
+  document.querySelector('.flag').setAttribute('d',`M-86 -410C-19 ${-431+w*.25} 63 ${-407-w*.45} 150 ${-375+edge}Q164 ${-325+edge*.5} 143 ${-270-edge*.65}C59 ${-310-w*.55} -11 ${-325+w*.4} -80 -303Z`);
+  document.querySelector('.flag-fold-a').setAttribute('d',`M-34 ${-416+w*.17}Q-9 ${-369-w*.15} -13 ${-318+w*.24}`);
+  document.querySelector('.flag-fold-b').setAttribute('d',`M66 ${-402-w*.4}Q85 ${-347+edge*.2} 64 ${-292-edge*.25}`);
+  document.querySelector('.flag-word').setAttribute('transform',`rotate(${11+w*.1} -56 -349)`);
   document.querySelector('#cape').setAttribute('d',`M-38 -208C25 -233 73 ${-144+w} 176 ${-133+w}L137 ${-33-w}Q58 ${-58+w} 23 -103Z`);
 
   // Four chapters spread evenly through 90% of the journey.
   const chapter=.22;
   const stage=Math.min(3,Math.floor(p/chapter));
+  showFeaturedProduct(stage);
   document.querySelector('#number').textContent='0'+(stage+1);
   document.querySelector('#stage-title').textContent=labels[stage];
   document.querySelector('#stage-copy').textContent=descriptions[stage];

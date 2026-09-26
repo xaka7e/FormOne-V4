@@ -9,6 +9,7 @@
 <linearGradient id="glass"><stop stop-color="#675440"/><stop offset="1" stop-color="#141c20"/></linearGradient>
 <radialGradient id="light"><stop stop-color="#f4c982" stop-opacity=".5"/><stop offset="1" stop-color="#e9b76c" stop-opacity="0"/></radialGradient>
 <linearGradient id="door"><stop stop-color="#f4db9e"/><stop offset=".45" stop-color="#fff3d7"/><stop offset="1" stop-color="#be8749"/></linearGradient>
+<filter id="sign-glow" x="-50%" y="-120%" width="200%" height="340%"><feGaussianBlur stdDeviation="5"/></filter>
 </defs>
 <rect width="1600" height="950" fill="url(#sky)"/>
 <ellipse cx="1260" cy="350" rx="530" ry="420" fill="url(#light)"/>
@@ -23,13 +24,19 @@
 <path d="M1085 225L1354 152V446L1085 439Z" fill="url(#glass)" stroke="#6c6e63"/>
 <path d="M1360 118L1490 183V448L1360 484Z" fill="#20282a"/>
 <path d="M1100 249L1355 181M1100 326L1355 273M1100 405L1355 366M1150 208V439M1220 190V440M1300 167V446" stroke="#0d171c" stroke-width="9"/>
-<path d="M1200 298L1328 275V450L1200 453Z" fill="url(#door)" stroke="#c5aa79" stroke-width="6"/>
-<path d="M1262 288V450M1200 327L1328 307" stroke="#645945" stroke-width="6"/>
-<path d="M1193 455L1340 451 1369 468 1172 475Z" fill="#9b8c70"/>
-<path d="M1172 475L1369 468 1393 484 1145 495Z" fill="#766d58"/>
-<text x="1236" y="248" fill="#ffe4ae" font-size="45" font-family="Arial" letter-spacing="10" transform="rotate(-10 1236 248)">GYM</text>
-<text x="1394" y="307" fill="#a99d84" font-size="12" letter-spacing="3" transform="rotate(13 1394 307)">DISCIPLINE</text>
-<text x="1394" y="328" fill="#a99d84" font-size="12" letter-spacing="3" transform="rotate(13 1394 328)">BUILDS YOU.</text>
+<path d="M1186 285L1342 253V458L1186 463Z" fill="#0d1518" stroke="#756c58" stroke-width="5"/>
+<path d="M1199 300L1327 275V447L1199 452Z" fill="url(#door)" stroke="#b99d6e" stroke-width="3"/>
+<path d="M1204 310L1322 287M1262 289V449M1200 334L1327 310" stroke="#766648" stroke-width="5"/>
+<path d="M1205 318L1257 308V444L1205 447ZM1267 306L1320 296V444L1267 446Z" fill="#ffe7b4" opacity=".28"/>
+<path d="M1191 455L1338 449 1361 465 1177 474Z" fill="#9b8c70" stroke="#5d5749" stroke-width="2"/>
+<path d="M1177 474L1361 465 1382 480 1157 493Z" fill="#766d58" stroke="#4a493f" stroke-width="2"/>
+<path d="M1191 468L1327 460 1393 498 1115 515Z" fill="#f3cb83" opacity=".11"/>
+<path d="M1189 241L1342 212V265L1189 294Z" fill="#151d20" stroke="#9c8966" stroke-width="3"/>
+<text x="1215" y="275" fill="#eebd72" opacity=".75" filter="url(#sign-glow)" font-size="32" font-family="Arial" letter-spacing="7" transform="rotate(-10 1215 275)">GYM</text>
+<text x="1215" y="275" fill="#ffe0a0" font-size="32" font-family="Arial" letter-spacing="7" transform="rotate(-10 1215 275)">GYM</text>
+<path d="M1372 259L1473 287V343L1372 316Z" fill="#1a2223" stroke="#716b5a" stroke-width="1"/>
+<text x="1379" y="285" fill="#c9b99a" font-size="10" font-family="Arial" letter-spacing="1.1" transform="rotate(14 1379 285)">DISCIPLINE</text>
+<text x="1379" y="303" fill="#c9b99a" font-size="10" font-family="Arial" letter-spacing="1.1" transform="rotate(14 1379 303)">BUILDS YOU.</text>
 </g>
 <g id="greeter" transform="translate(1256 449) scale(.49)">
 <path id="cape" d="M-38 -208C25 -233 73 -144 176 -133L137 -33Q58 -58 23 -103Z" fill="#353b3a" stroke="#c0ae82" stroke-width="2"/>
@@ -39,7 +46,7 @@
 <path d="M-17 -254Q0 -269 18 -252L15 -222 -12 -221Z" fill="url(#body)" stroke="#aa9e7f" stroke-width="2"/>
 <path d="M-11 -246H-3M5 -246H13" stroke="#ead7a4" stroke-width="2"/>
 <g fill="#f5e9cc" text-anchor="middle" font-size="13" font-weight="bold" font-family="Arial"><text y="-211">E</text><text y="-196">N</text><text y="-181">O</text><text y="-166">M</text><text y="-151">R</text><text y="-136">O</text><text y="-121">F</text></g></g>
-<g id="walkers"></g></svg><div class="shade"></div><div class="intro"><p class="eyebrow">FORMONE / СПОРТИВНОЕ ПИТАНИЕ</p><h1>Сила начинается<br>изнутри.</h1></div><aside><div class="count"><span id="number">01</span><small>/ 04</small></div><h2 id="stage-title">Сывороточный<br>протеин</h2><div class="rule"></div><p id="stage-copy">Основа твоего<br>ежедневного рациона.</p><div class="dots"><button aria-label="Этап 1: протеин"></button><button aria-label="Этап 2: BCAA"></button><button aria-label="Этап 3: ферменты"></button><button aria-label="Этап 4: качество"></button></div></aside><div class="scroll-note">ЛИСТАЙТЕ ВНИЗ <span>↓</span></div><span class="scene-caption">ЧЕТЫРЕ ШАГА К ТВОЕЙ ФОРМЕ</span></div><div class="mobile-scene" aria-label="Мобильная анимация FORMONE: протеин и вода смешиваются в гигантском шейкере">
+<g id="walkers"></g></svg><div class="shade"></div><div class="intro"><p class="eyebrow">FORMONE / СПОРТИВНОЕ ПИТАНИЕ</p><h1>Сила начинается<br>изнутри.</h1></div><div class="featured-product" aria-live="polite"><img id="featured-image" src="assets/formone-whey-chocolate.jpg" alt="Оригинальная упаковка FormOne Premium Whey Protein Chocolate"><span id="featured-note">ОРИГИНАЛЬНЫЙ ПРОДУКТ FORMONE</span></div><aside><div class="count"><span id="number">01</span><small>/ 04</small></div><h2 id="stage-title">Протеин · шоколад</h2><div class="rule"></div><p id="stage-copy">Premium Whey Protein Chocolate · 1 000 г.</p><div class="dots"><button aria-label="Этап 1: протеин"></button><button aria-label="Этап 2: креатин"></button><button aria-label="Этап 3: ванильный протеин"></button><button aria-label="Этап 4: креатин"></button></div></aside><div class="scroll-note">ЛИСТАЙТЕ ВНИЗ <span>↓</span></div><span class="scene-caption">ЧЕТЫРЕ ШАГА К ТВОЕЙ ФОРМЕ</span></div><div class="mobile-scene" aria-label="Мобильная анимация FORMONE: протеин и вода смешиваются в гигантском шейкере"><div class="mobile-featured-product" aria-live="polite"><img id="mobile-featured-image" src="assets/formone-whey-chocolate.jpg" alt="Оригинальная упаковка FormOne Premium Whey Protein Chocolate"><span id="mobile-featured-note">ПРОТЕИН FORMONE</span></div>
   <div class="mobile-copy">
     <p class="eyebrow">FORMONE / СПОРТИВНОЕ ПИТАНИЕ</p>
     <h1>Сила начинается<br>изнутри.</h1>
@@ -116,3 +123,5 @@
 </div><div class="reveal"><p class="eyebrow">FORMONE / КОЛЛЕКЦИЯ</p><h2>Наши товары</h2><p>Твоя цель. Твой ритм. Твоя формула.</p><a href="#products">Открыть коллекцию ↓</a></div><div class="progress"><i></i></div></div></section>
 <section id="products" class="products"><div class="section-heading"><div><p class="eyebrow">ПОДДЕРЖКА НА КАЖДОМ ЭТАПЕ</p><h2>Наши товары</h2></div><p>Сила в последовательности.</p></div><div class="cards"></div></section>
 <section id="about" class="about"><p class="eyebrow">О БРЕНДЕ</p><h2>Форма — результат<br>твоих действий.</h2><p>FORMONE. Концепция спортивного питания для тех, кто продолжает идти к своей цели.</p></section></main><footer id="contacts"><a class="brand" href="#top">FORMONE</a><p>Демонстрационный офлайн-прототип.<br>Контакты и покупка появятся в полной версии.</p><a href="#top">Вернуться к началу ↑</a></footer><script src="animation.js"></script></body></html>
+
+\n
