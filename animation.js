@@ -44,7 +44,101 @@ document.querySelector('.cards').innerHTML=productNames.map((n,i)=>`<article cla
 const rigs=[0,1,2,3].map(i=>document.querySelector('#walker-'+i));
 const starts=[[360,843,1.20],[650,702,.94],[867,584,.73],[1036,518,.53]];
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
-function render(){
+function renderMobile(p){
+  const scene=document.querySelector('.mobile-scene');
+  if(!scene)return;
+
+  // Мобильная версия — отдельная история, а не уменьшенная desktop-сцена.
+  const personIn=clamp((p-.05)/.13);
+  const pourIn=clamp((p-.15)/.13);
+  const pourOut=1-clamp((p-.43)/.08);
+  const powder=pourIn*pourOut;
+  const waterIn=clamp((p-.27)/.13);
+  const waterOut=1-clamp((p-.57)/.08);
+  const water=waterIn*waterOut;
+  const mix=clamp((p-.35)/.38);
+  const final=clamp((p-.70)/.12);
+  const fade=clamp((p-.90)/.075);
+
+  const athlete=document.querySelector('#mobile-athlete');
+  const jarNode=document.querySelector('#mobile-protein-jar');
+  if(athlete){
+    athlete.setAttribute('transform',`translate(${302+(1-personIn)*52} ${225-(1-personIn)*7})`);
+    athlete.style.opacity=String(.2+.8*personIn);
+  }
+  if(jarNode){
+    const tilt=-8-43*powder;
+    jarNode.setAttribute('transform',`translate(-61 -14) rotate(${tilt})`);
+  }
+
+  const powderPath=document.querySelector('#mobile-powder');
+  const powderCloud=document.querySelector('#mobile-powder-cloud');
+  if(powderPath){
+    powderPath.style.opacity=String(powder);
+    powderPath.setAttribute('stroke-dashoffset',String(1-pourIn));
+  }
+  if(powderCloud)powderCloud.style.opacity=String(powder*.7);
+
+  ['#mobile-water','#mobile-water-hi'].forEach(sel=>{
+    const el=document.querySelector(sel);
+    if(el){
+      el.style.opacity=String(water*(sel.endsWith('-hi')?.55:.92));
+      el.setAttribute('stroke-dashoffset',String(1-waterIn));
+    }
+  });
+
+  const liquid=document.querySelector('#mobile-liquid');
+  const wave=document.querySelector('#mobile-wave');
+  const swirl=document.querySelector('#mobile-swirl');
+  const topY=790-355*mix;
+  if(liquid){
+    liquid.setAttribute('y',topY.toFixed(1));
+    liquid.setAttribute('height',(792-topY).toFixed(1));
+  }
+  if(wave){
+    wave.setAttribute('cy',topY.toFixed(1));
+    wave.setAttribute('rx',String(120+26*mix));
+    wave.style.opacity=String(.3+.56*mix);
+  }
+  if(swirl){
+    swirl.style.opacity=String(clamp((mix-.12)/.45)*(1-clamp((p-.82)/.08)));
+    swirl.setAttribute('transform',`translate(0 ${20*(1-mix)}) rotate(${mix*18} 195 650)`);
+  }
+
+  const copy=document.querySelector('.mobile-copy');
+  if(copy){
+    const copyFade=1-clamp((p-.12)/.16);
+    copy.style.opacity=String(copyFade);
+    copy.style.transform=`translateY(${-14*clamp((p-.08)/.18)}px)`;
+  }
+
+  const statusNum=document.querySelector('#mobile-status-num');
+  const statusLabel=document.querySelector('#mobile-status-label');
+  let status=['01','ДОБАВЛЯЕМ ПРОТЕИН'];
+  if(p>=.27)status=['02','ДОБАВЛЯЕМ ВОДУ'];
+  if(p>=.46)status=['03','СМЕШИВАЕМ'];
+  if(p>=.72)status=['04','ГОТОВО'];
+  if(statusNum)statusNum.textContent=status[0];
+  if(statusLabel)statusLabel.textContent=status[1];
+
+  // На финале готовая смесь чуть приближается — акцент на результате.
+  const shaker=document.querySelector('#mobile-shaker');
+  if(shaker)shaker.setAttribute('transform',`translate(0 ${-7*final}) scale(${1+.015*final} ${1+.015*final})`);
+
+  scene.style.opacity=String(1-fade);
+  scene.style.visibility=fade===1?'hidden':'visible';
+  scene.setAttribute('aria-hidden',fade===1?'true':'false');
+  const reveal=document.querySelector('.reveal');
+  reveal.style.opacity=String(fade);
+  reveal.style.visibility=fade>0?'visible':'hidden';
+  reveal.style.pointerEvents=fade>.5?'auto':'none';
+  document.querySelector('.progress i').style.width=p*100+'%';
+  document.body.dataset.stage=fade===1?'5':status[0];
+  document.body.dataset.progress=p.toFixed(4);
+}
+
+function renderDesktop(p){
+
   const journey=document.querySelector('.journey');
   const maxScroll=Math.max(1,journey.offsetHeight-innerHeight);
   const p=clamp(scrollY/maxScroll);
@@ -97,7 +191,7 @@ function render(){
 
   // Reveal starts only after the walk has essentially finished.
   const fade=clamp((p-.89)/.085);
-  const scene=document.querySelector('.scene');
+  const scene=document.querySelector('.desktop-scene');
   const reveal=document.querySelector('.reveal');
   scene.style.opacity=1-fade;
   scene.style.visibility=fade===1?'hidden':'visible';
@@ -108,6 +202,14 @@ function render(){
   document.querySelector('.progress i').style.width=p*100+'%';
   document.body.dataset.stage=fade===1?'5':String(stage+1);
   document.body.dataset.progress=p.toFixed(4);
+}
+
+function render(){
+  const journey=document.querySelector('.journey');
+  const maxScroll=Math.max(1,journey.offsetHeight-innerHeight);
+  const p=clamp(scrollY/maxScroll);
+  if(matchMedia('(max-width:700px)').matches)renderMobile(p);
+  else renderDesktop(p);
 }
 // No free-running timeline: every pose is a pure function of scroll position.
 let queued=false;function update(){if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;render();});}}addEventListener('scroll',update,{passive:true});addEventListener('resize',update);document.querySelectorAll('.dots button').forEach((b,i)=>b.addEventListener('click',()=>scrollTo(0,i*.22*(document.querySelector('.journey').offsetHeight-innerHeight))));render();
