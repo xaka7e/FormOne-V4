@@ -2,10 +2,10 @@
 const NS='http://www.w3.org/2000/svg';
 // Confirmed products from formonenutrition.com; stages 2 and 4 use the same real SKU.
 const featuredProducts=[
-  {title:'Протеин · шоколад',copy:'Premium Whey Protein Chocolate · 1 000 г.',image:'assets/formone-whey-chocolate.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Chocolate',mobile:'ШОКОЛАДНЫЙ ПРОТЕИН'},
-  {title:'Креатин · яблоко',copy:'Creatine Gummies · 90 пастилок, вкус яблока.',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies Apple',mobile:'КРЕАТИН FORMONE'},
-  {title:'Протеин · ваниль',copy:'Premium Whey Protein Vanilla · 1 000 г.',image:'assets/formone-whey-vanilla.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Vanilla',mobile:'ВАНИЛЬНЫЙ ПРОТЕИН'},
-  {title:'Креатин · яблоко',copy:'Creatine Gummies · 90 пастилок. В каталоге указано: без сахара, веганский продукт.',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies Apple',mobile:'КРЕАТИН FORMONE'}
+  {title:'Протеин · шоколад',copy:'Сывороточный протеин с какао и ароматом молочного шоколада. Для привычного ритма тренировок.',facts:['Сывороточный концентрат','Шоколадный вкус','1 000 г в банке','Порция по каталогу — 30 г'],flavor:'chocolate',image:'assets/formone-whey-chocolate.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Chocolate',mobile:'ШОКОЛАДНЫЙ ПРОТЕИН'},
+  {title:'Креатин · пастилки',copy:'Креатин в формате жевательных пастилок. Компактная банка, которую удобно взять с собой.',facts:['Креатиновые пастилки','Без сахара','90 штук в банке','Порция по каталогу — 3 шт.'],flavor:'creatine',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies',mobile:'КРЕАТИН FORMONE'},
+  {title:'Протеин · ваниль',copy:'Сывороточный протеин с ванильным ароматом. Мягкий вкус для ежедневного рациона.',facts:['Сывороточный концентрат','Ванильный вкус','1 000 г в банке','Порция по каталогу — 30 г'],flavor:'vanilla',image:'assets/formone-whey-vanilla.jpg',alt:'Оригинальная упаковка FormOne Premium Whey Protein Vanilla',mobile:'ВАНИЛЬНЫЙ ПРОТЕИН'},
+  {title:'Креатин · пастилки',copy:'Креатиновые пастилки FormOne без сахара. В каталоге продукт также отмечен как веганский.',facts:['Креатиновые пастилки','Веганский продукт','90 штук в банке','Порция по каталогу — 3 шт.'],flavor:'creatine',image:'assets/formone-creatine-gummies.jpg',alt:'Оригинальная упаковка FormOne Creatine Gummies',mobile:'КРЕАТИН FORMONE'}
 ];
 const labels=featuredProducts.map(product=>product.title);
 const descriptions=featuredProducts.map(product=>product.copy);
@@ -37,12 +37,12 @@ function grip(x,y){return `<g class="grip"><ellipse cx="${x}" cy="${y}" rx="11" 
 function bentArm(d){return `<path d="${d}" fill="none" stroke="#b8ac8c" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="url(#body)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>`;}
 function load(i){
  // Both palms sit beneath the WHEY base; the entire load moves as one group.
- if(i===0)return `<g transform="rotate(-3 48 -196)">${jar('WHEY',48,-238,1.34)}${bentArm('M-52 -205Q-83 -150 -49 -116Q-27 -92 8 -82')}${bentArm('M54 -208Q126 -180 124 -127Q121 -96 91 -82')}${grip(8,-82)}${grip(91,-82)}</g>`;
+ if(i===0)return `<g transform="rotate(-3 0 -196)">${jar('WHEY',0,-238,1.24)}${bentArm('M-60 -213L-108 -170L-99 -113L-37 -95')}${bentArm('M60 -213L108 -170L99 -113L37 -95')}${grip(-37,-95)}${grip(37,-95)}</g>`;
  // Character's right shoulder is on the image's right: elbow and palm support the jar from underneath.
- if(i===1)return `<g transform="rotate(-7 72 -230)">${jar('BCAA',72,-330,1.05)}${bentArm('M55 -210Q119 -184 119 -220L94 -211')}${grip(94,-211)}</g>`;
+ if(i===1)return `<g transform="rotate(-7 99 -230)">${jar('BCAA',99,-330,1.05)}${bentArm('M56 -212L133 -169L130 -190L110 -211')}${grip(110,-211)}</g>`;
  // ENZYMES stays outside the left side of the torso, with its base on the open palm.
- if(i===2)return `<g transform="rotate(-8 -96 -174)">${jar('ENZYMES',-97,-272,.97)}${bentArm('M-55 -209Q-137 -204 -128 -172L-100 -157')}${grip(-100,-157)}</g>`;
- return `<path d="M-65 -100L-86 -414" stroke="#c2b594" stroke-width="6"/><path class="flag" fill="#172226" stroke="#c7b181" stroke-width="2"/><path class="flag-fold flag-fold-a" fill="none" stroke="#d5c49a" stroke-opacity=".23" stroke-width="5"/><path class="flag-fold flag-fold-b" fill="none" stroke="#65706a" stroke-opacity=".55" stroke-width="6"/><text class="flag-word" x="-56" y="-349" fill="#eee3c9" font-size="25" letter-spacing="3" transform="rotate(11 -56 -349)">FORMONE</text>${bentArm('M-54 -207Q-91 -188 -71 -153')}${grip(-71,-153)}`;
+ if(i===2)return `<g transform="rotate(-8 -96 -174)">${jar('ENZYMES',-97,-272,.97)}${bentArm('M-57 -211L-147 -191L-142 -165L-100 -157')}${grip(-100,-157)}</g>`;
+ return `<path d="M-65 -100L-86 -414" stroke="#c2b594" stroke-width="6"/><path class="flag" fill="#172226" stroke="#c7b181" stroke-width="2"/><path class="flag-fold flag-fold-a" fill="none" stroke="#d5c49a" stroke-opacity=".23" stroke-width="5"/><path class="flag-fold flag-fold-b" fill="none" stroke="#65706a" stroke-opacity=".55" stroke-width="6"/><text class="flag-word" x="34" y="-340" text-anchor="middle" fill="#eee3c9" font-size="25" letter-spacing="2">FORMONE</text>${bentArm('M-54 -207Q-91 -188 -71 -153')}${grip(-71,-153)}`;
 }
 for(let i=3;i>=0;i--){let g=document.createElementNS(NS,'g');g.id='walker-'+i;g.dataset.carry=['two-hands-front','right-shoulder','outside-underhand','oversized-flag'][i];g.innerHTML=`<ellipse cy="8" rx="79" ry="12" fill="#0b1114" opacity=".5"/><g class="squat" transform="scale(1.12 .76)">${leg('left')}${leg('right')}<g class="upper"><path d="M-59 -215Q-47 -242 0 -231Q44 -242 61 -211L39 -153 35 -112Q0 -94 -35 -113L-39 -153Z" fill="url(#body)" stroke="#b8ac8c" stroke-width="2"/><path d="M-49 -207Q-29 -218 -4 -201L-10 -159 -31 -147M49 -207Q29 -218 4 -201L10 -159 31 -147" fill="#293538" stroke="#606e67" stroke-width="2"/><path d="M0 -209V-137M-31 -138Q0 -125 31 -138M-31 -121Q0 -111 31 -121" fill="none" stroke="#101a1e" stroke-width="4"/><g transform="translate(0 -237) scale(1.32 1.25) translate(0 237)"><path d="M-24 -260Q-21 -286 5 -286Q27 -283 27 -258L19 -237 -16 -237Z" fill="url(#body)" stroke="#9da18e" stroke-width="2"/><path d="M-26 -263Q-30 -294 7 -293Q31 -291 29 -271L38 -267 23 -262Z" fill="#1c282c" stroke="#abb099" stroke-width="2"/><path d="M-16 -271L-10 -249M-1 -275L3 -250" stroke="#56635b" stroke-width="2"/></g><path d="M-34 -233Q0 -248 34 -233L26 -218Q0 -229 -26 -218Z" fill="#18252a" stroke="#727e71" stroke-width="2"/><text x="${i===0?-17:0}" y="-177" fill="#939b87" opacity=".75" font-size="25" font-family="Arial" font-style="italic" font-weight="bold" text-anchor="middle">F1</text>${i===1?arm('left'):i===2?arm('right'):i===3?arm('right'):''}<g class="cargo">${load(i)}</g></g></g>`;container.appendChild(g);}
 // Deterministic terrain avoids assets and remains identical when scrolling back.
@@ -56,6 +56,8 @@ const starts=[[360,843,1.20],[650,702,.94],[867,584,.73],[1036,518,.53]];
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 function showFeaturedProduct(stage){
   const product=featuredProducts[stage];
+  document.querySelector('.featured-product').dataset.flavor=product.flavor;
+  document.querySelector('.mobile-featured-product').dataset.flavor=product.flavor;
   for(const prefix of ['','mobile-']){
     const image=document.querySelector(`#${prefix}featured-image`);
     if(!image)continue;
@@ -197,7 +199,7 @@ function renderDesktop(p){
   document.querySelector('.flag').setAttribute('d',`M-86 -410C-19 ${-431+w*.25} 63 ${-407-w*.45} 150 ${-375+edge}Q164 ${-325+edge*.5} 143 ${-270-edge*.65}C59 ${-310-w*.55} -11 ${-325+w*.4} -80 -303Z`);
   document.querySelector('.flag-fold-a').setAttribute('d',`M-34 ${-416+w*.17}Q-9 ${-369-w*.15} -13 ${-318+w*.24}`);
   document.querySelector('.flag-fold-b').setAttribute('d',`M66 ${-402-w*.4}Q85 ${-347+edge*.2} 64 ${-292-edge*.25}`);
-  document.querySelector('.flag-word').setAttribute('transform',`rotate(${11+w*.1} -56 -349)`);
+  document.querySelector('.flag-word').setAttribute('transform',`translate(${w*.13} ${edge*.08}) rotate(${w*.08} 34 -340)`);
   document.querySelector('#cape').setAttribute('d',`M-38 -208C25 -233 73 ${-144+w} 176 ${-133+w}L137 ${-33-w}Q58 ${-58+w} 23 -103Z`);
 
   // Four chapters spread evenly through 90% of the journey.
@@ -207,6 +209,7 @@ function renderDesktop(p){
   document.querySelector('#number').textContent='0'+(stage+1);
   document.querySelector('#stage-title').textContent=labels[stage];
   document.querySelector('#stage-copy').textContent=descriptions[stage];
+  document.querySelector('#stage-facts').innerHTML=featuredProducts[stage].facts.map(fact=>`<li>${fact}</li>`).join('');
   document.querySelectorAll('.dots button').forEach((b,i)=>{
     b.classList.toggle('active',i===stage);
     b.setAttribute('aria-current',i===stage?'step':'false');
