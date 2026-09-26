@@ -41,6 +41,7 @@ const featuredProducts = [
     image: "assets/formone-whey-chocolate.jpg",
     alt: "Originalverpackung von FormOne Premium Whey Protein Chocolate",
     mobile: "SCHOKOLADENPROTEIN",
+    mobileDetail: "Molkenprotein · 1.000 g",
   },
   {
     title: "Kreatin-Gummis",
@@ -55,6 +56,7 @@ const featuredProducts = [
     image: "assets/formone-creatine-gummies.jpg",
     alt: "Originalverpackung von FormOne Creatine Gummies",
     mobile: "KREATIN VON FORMONE",
+    mobileDetail: "Zuckerfrei · 90 Stück",
   },
   {
     title: "Protein · Vanille",
@@ -69,6 +71,7 @@ const featuredProducts = [
     image: "assets/formone-whey-vanilla.jpg",
     alt: "Originalverpackung von FormOne Premium Whey Protein Vanilla",
     mobile: "VANILLEPROTEIN",
+    mobileDetail: "Molkenprotein · 1.000 g",
   },
   {
     title: "Kreatin-Gummis",
@@ -83,6 +86,7 @@ const featuredProducts = [
     image: "assets/formone-creatine-gummies.jpg",
     alt: "Originalverpackung von FormOne Creatine Gummies",
     mobile: "KREATIN VON FORMONE",
+    mobileDetail: "Vegan · 90 Stück",
   },
 ];
 const labels = featuredProducts.map((product) => product.title);
@@ -246,12 +250,23 @@ const starts = [
   [1050, 518, 0.53],
 ];
 const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
+const smooth = (t) => t * t * (3 - 2 * t);
+// Schokoladenfarben stufenlos mischen. (Плавно смешиваем шоколадные оттенки.)
+function blendColor(dark, light, amount) {
+  const channels = dark.map((value, i) =>
+    Math.round(value + (light[i] - value) * amount),
+  );
+  return `rgb(${channels.join(", ")})`;
+}
 // Bild, Alternativtext und Produktkennung gemeinsam aktualisieren. (Изображение, альтернативный текст и тип товара обновляются вместе.)
 function showFeaturedProduct(stage) {
   const product = featuredProducts[stage];
   document.querySelector(".featured-product").dataset.flavor = product.flavor;
   document.querySelector(".mobile-featured-product").dataset.flavor =
     product.flavor;
+  document.querySelector("#mobile-featured-title").textContent = product.title;
+  document.querySelector("#mobile-featured-detail").textContent =
+    product.mobileDetail;
   for (const prefix of ["", "mobile-"]) {
     const image = document.querySelector(`#${prefix}featured-image`);
     if (!image) continue;
@@ -271,30 +286,52 @@ function renderMobile(p) {
   if (!scene) return;
 
   // Auf dem Smartphone erzählt der Shaker seine eigene Geschichte. (На телефоне используется отдельный сюжет с шейкером.)
-  const personIn = clamp((p - 0.05) / 0.13);
-  const pourIn = clamp((p - 0.15) / 0.13);
-  const pourOut = 1 - clamp((p - 0.43) / 0.08);
-  const powder = pourIn * pourOut;
-  const waterIn = clamp((p - 0.27) / 0.13);
-  const waterOut = 1 - clamp((p - 0.57) / 0.08);
+  const personIn = clamp((p - 0.02) / 0.11);
+  const pourIn = smooth(clamp((p - 0.13) / 0.05));
+  const pourOut = 1 - smooth(clamp((p - 0.275) / 0.05));
+  const powder = clamp((p - 0.18) / 0.025) * (1 - clamp((p - 0.25) / 0.035));
+  const powderAmount = clamp((p - 0.18) / 0.09);
+  const waterIn = clamp((p - 0.27) / 0.09);
+  const waterOut = 1 - clamp((p - 0.55) / 0.07);
   const water = waterIn * waterOut;
+  const waterAmount = clamp((p - 0.34) / 0.28);
   const mix = clamp((p - 0.35) / 0.38);
+  const dilution = smooth(clamp((p - 0.35) / 0.32));
   const final = clamp((p - 0.7) / 0.12);
   const fade = clamp((p - 0.9) / 0.075);
 
   const athlete = document.querySelector("#mobile-athlete");
   const jarNode = document.querySelector("#mobile-protein-jar");
-  const athleteX = 302 + (1 - personIn) * 12;
-  const athleteY = 176;
-  const tilt = -8 - 102 * powder;
+  const athleteX = 326 - 24 * personIn;
+  const athleteY = 176 - 2 * Math.sin(personIn * Math.PI * 2) ** 2;
+  const tilt = -8 - 102 * pourIn * pourOut;
   if (athlete) {
     athlete.setAttribute("transform", `translate(${athleteX} ${athleteY})`);
     athlete.style.opacity = String(0.85 + 0.15 * personIn);
   }
+  // Zwei kurze Schritte: Der Standfuß bleibt auf der Plattform, nur der andere hebt ab. (Два коротких шага: опорная стопа остаётся на площадке, другая поднимается.)
+  ["left", "right"].forEach((side, index) => {
+    const step = clamp(personIn * 2 - index);
+    const lift = 13 * Math.sin(step * Math.PI);
+    const hipX = index === 0 ? -14 : 14;
+    const footX = 326 + (index === 0 ? -24 : 24) - 24 * smooth(step) - athleteX;
+    const footY = 47 + (176 - athleteY) - lift;
+    const kneeX = hipX + (footX - hipX) * 0.45 - lift * 0.45;
+    const leg = document.querySelector(`#mobile-leg-${side}`);
+    leg
+      .querySelector("path")
+      .setAttribute(
+        "d",
+        `M${hipX} -8L${kneeX} ${18 - lift * 0.3}L${footX} ${footY - 6}`,
+      );
+    leg
+      .querySelector(".mobile-foot")
+      .setAttribute("d", `M${footX - 9} ${footY}H${footX + 7}`);
+  });
   if (jarNode) {
     jarNode.setAttribute("transform", `translate(-61 -14) rotate(${tilt})`);
   }
-  const lidOpen = clamp((p - 0.08) / 0.07) * (1 - clamp((p - 0.52) / 0.08));
+  const lidOpen = clamp((p - 0.13) / 0.035) * (1 - clamp((p - 0.34) / 0.06));
   const lid = document.querySelector("#mobile-jar-lid");
   lid.setAttribute("transform", `translate(0 ${-25 * lidOpen})`);
   lid.style.opacity = String(1 - lidOpen);
@@ -303,7 +340,7 @@ function renderMobile(p) {
   const powderCloud = document.querySelector("#mobile-powder-cloud");
   if (powderPath) {
     powderPath.style.opacity = String(powder);
-    powderPath.setAttribute("stroke-dashoffset", String(1 - pourIn));
+    powderPath.setAttribute("stroke-dashoffset", String(-p * 18));
   }
   if (powderCloud) powderCloud.style.opacity = String(powder * 0.7);
 
@@ -318,7 +355,21 @@ function renderMobile(p) {
   const liquid = document.querySelector("#mobile-liquid");
   const wave = document.querySelector("#mobile-wave");
   const swirl = document.querySelector("#mobile-swirl");
-  const topY = 790 - 355 * mix;
+  // Zuerst sammelt sich dunkles Pulver; erst Wasser erhöht Volumen und Helligkeit. (Сначала накапливается тёмный порошок; вода увеличивает объём и осветляет смесь.)
+  const fillHeight = 110 * powderAmount + 245 * waterAmount;
+  const topY = 792 - fillHeight;
+  document
+    .querySelector("#mobile-liquid-top")
+    .setAttribute(
+      "stop-color",
+      blendColor([99, 67, 48], [182, 142, 106], dilution),
+    );
+  document
+    .querySelector("#mobile-liquid-bottom")
+    .setAttribute(
+      "stop-color",
+      blendColor([48, 33, 27], [110, 76, 54], dilution),
+    );
   // Pulver und Wasser fließen von Öffnung und Hahn bis zur aktuellen Füllhöhe. (Порошок и вода идут от горлышка и крана до текущего уровня смеси.)
   const angle = (tilt * Math.PI) / 180;
   const mouthX = athleteX - 61 + 36 * Math.sin(angle);
@@ -333,12 +384,17 @@ function renderMobile(p) {
   );
   if (liquid) {
     liquid.setAttribute("y", topY.toFixed(1));
-    liquid.setAttribute("height", (792 - topY).toFixed(1));
+    liquid.setAttribute("height", fillHeight.toFixed(1));
   }
   if (wave) {
     wave.setAttribute("cy", topY.toFixed(1));
     wave.setAttribute("rx", String(120 + 26 * mix));
-    wave.style.opacity = String(0.3 + 0.56 * mix);
+    wave.setAttribute("ry", String(4 + 12 * waterAmount));
+    wave.setAttribute(
+      "fill",
+      blendColor([120, 81, 58], [206, 170, 131], dilution),
+    );
+    wave.style.opacity = String(powderAmount * (0.7 + 0.16 * mix));
   }
   if (swirl) {
     swirl.style.opacity = String(
@@ -375,8 +431,8 @@ function renderMobile(p) {
   reveal.style.visibility = fade > 0 ? "visible" : "hidden";
   reveal.style.pointerEvents = fade > 0.5 ? "auto" : "none";
   document.querySelector(".progress i").style.width = p * 100 + "%";
-  // Alle Schritte der Zubereitung zeigen dasselbe Proteinprodukt. (На всех этапах приготовления показывается один и тот же протеин.)
-  showFeaturedProduct(0);
+  // Jeder Zubereitungsschritt zeigt einen Produktabschnitt wie auf dem Desktop. (Каждый этап приготовления переключает товарный блок, как на компьютере.)
+  showFeaturedProduct(Number(status[0]) - 1);
   document.body.dataset.stage = fade === 1 ? "5" : status[0];
   document.body.dataset.progress = p.toFixed(4);
 }

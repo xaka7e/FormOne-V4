@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>FORMONE — Stärke kommt von innen</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=mobile-2" />
   </head>
   <body>
     <!-- Freistellmasken für die Originalverpackungen. (Маски обрезки оригинальных упаковок.) -->
@@ -418,10 +418,7 @@
                   STUDIO
                 </text>
                 <!-- Rahmen und Text laufen zum Fluchtpunkt der Seitenwand bei 1831,09 / 353,54. (Рамка и текст направлены к точке схода боковой стены: 1831,09 / 353,54.) -->
-                <g
-                  id="gym-wall-slogan"
-                  transform="translate(1370 314)"
-                >
+                <g id="gym-wall-slogan" transform="translate(1370 314)">
                   <path
                     d="M3 4.23L113 12.71V54.99L3 59.87Z"
                     fill="#0c1214"
@@ -593,8 +590,8 @@
               />
               <div class="mobile-product-copy">
                 <span id="mobile-featured-note">SCHOKOLADENPROTEIN</span>
-                <h2>Protein · Schokolade</h2>
-                <p>Molkenprotein · 1.000 g</p>
+                <h2 id="mobile-featured-title">Protein · Schokolade</h2>
+                <p id="mobile-featured-detail">Molkenprotein · 1.000 g</p>
               </div>
             </div>
             <div class="mobile-copy">
@@ -628,8 +625,17 @@
                   <stop offset="1" stop-color="#181e1f" />
                 </linearGradient>
                 <linearGradient id="m-liquid" x1="0" y1="0" x2="0" y2="1">
-                  <stop stop-color="#ead6aa" stop-opacity=".93" />
-                  <stop offset="1" stop-color="#8b7655" stop-opacity=".98" />
+                  <stop
+                    id="mobile-liquid-top"
+                    stop-color="#634330"
+                    stop-opacity=".96"
+                  />
+                  <stop
+                    id="mobile-liquid-bottom"
+                    offset="1"
+                    stop-color="#30211b"
+                    stop-opacity=".98"
+                  />
                 </linearGradient>
                 <linearGradient id="m-glass" x1="0" x2="1">
                   <stop stop-color="#cbd2cd" stop-opacity=".08" />
@@ -707,7 +713,7 @@
                   stroke-width="4"
                 />
               </g>
-              <g id="mobile-athlete" transform="translate(302 225)">
+              <g id="mobile-athlete" transform="translate(326 176)">
                 <circle
                   cx="0"
                   cy="-82"
@@ -722,18 +728,41 @@
                   stroke="#8f8c78"
                   stroke-width="1.5"
                 />
-                <path
-                  d="M-14 -8L-25 39M14 -8L27 39"
-                  stroke="#778078"
-                  stroke-width="13"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M-23 39L-32 53M27 39L36 52"
-                  stroke="#252d2e"
-                  stroke-width="11"
-                  stroke-linecap="round"
-                />
+                <!-- Beide Füße haben Bodenkontakt zwischen den Schritten. (Между шагами обе стопы стоят на площадке.) -->
+                <g id="mobile-leg-left">
+                  <path
+                    d="M-14 -8L-20 18L-24 41"
+                    fill="none"
+                    stroke="#778078"
+                    stroke-width="13"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    class="mobile-foot"
+                    d="M-33 47H-17"
+                    stroke="#252d2e"
+                    stroke-width="11"
+                    stroke-linecap="round"
+                  />
+                </g>
+                <g id="mobile-leg-right">
+                  <path
+                    d="M14 -8L20 18L24 41"
+                    fill="none"
+                    stroke="#778078"
+                    stroke-width="13"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    class="mobile-foot"
+                    d="M15 47H31"
+                    stroke="#252d2e"
+                    stroke-width="11"
+                    stroke-linecap="round"
+                  />
+                </g>
                 <path
                   d="M-18 -52L-46 -29L-61 -5M18 -52L47 -31L58 -12"
                   fill="none"
@@ -862,14 +891,14 @@
                     cy="790"
                     rx="146"
                     ry="16"
-                    fill="#f3dfb5"
-                    opacity=".86"
+                    fill="#78513a"
+                    opacity="0"
                   />
                   <g
                     id="mobile-swirl"
                     opacity="0"
                     fill="none"
-                    stroke="#fff0c9"
+                    stroke="#e4c49d"
                     stroke-linecap="round"
                   >
                     <path
@@ -960,7 +989,7 @@
                 id="mobile-powder"
                 d="M244 214C229 258 221 298 212 355C208 381 207 399 205 420"
                 fill="none"
-                stroke="#e8d2a4"
+                stroke="#986e4c"
                 stroke-width="15"
                 stroke-linecap="round"
                 pathLength="1"
@@ -968,7 +997,7 @@
                 stroke-dashoffset="1"
                 opacity="0"
               />
-              <g id="mobile-powder-cloud" opacity="0" fill="#e8d2a4">
+              <g id="mobile-powder-cloud" opacity="0" fill="#986e4c">
                 <circle cx="225" cy="330" r="7" />
                 <circle cx="208" cy="349" r="5" />
                 <circle cx="232" cy="365" r="4" />
@@ -1032,6 +1061,6 @@
       </p>
       <a href="#top">Zurück nach oben ↑</a>
     </footer>
-    <script src="animation.js"></script>
+    <script src="animation.js?v=mobile-2"></script>
   </body>
 </html>

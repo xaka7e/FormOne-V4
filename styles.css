@@ -810,6 +810,12 @@ aside p {
     transform: translate(-50%, -50%);
     clip-path: url(#whey-silhouette);
   }
+  /* Die schmale Gummidose braucht ihre eigene Freistellmaske. (Для узкой банки с пастилками нужна отдельная маска обрезки.) */
+  .mobile-featured-product[data-flavor="creatine"] img {
+    top: 44%;
+    clip-path: url(#creatine-silhouette);
+    transform: translate(-50%, -50%) scale(0.9);
+  }
   .mobile-featured-product span {
     position: static;
     color: #c7b693;
