@@ -14,6 +14,12 @@
 .featured-product span{display:none}
 .product-summary{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;top:39%;bottom:auto;left:4%;right:auto;width:min(600px,42vw);padding:12px 24px 12px 8px;border-top:1px solid #b5a47a55;background:linear-gradient(120deg,#10181988,#10181900);text-shadow:0 2px 10px #081012}
 .product-details{min-width:0}
+.scene-invite{position:absolute;right:5%;bottom:12%;width:285px}
+.scene-invite p{margin:0 0 20px;color:#d3cfbf;font-size:25px;font-weight:400;line-height:1.2;letter-spacing:-.025em}
+.scene-invite a{display:inline-flex;align-items:center;justify-content:space-between;gap:42px;min-height:44px;padding:0 0 8px;border-bottom:1px solid #b8a37a;color:#e2c899;font-size:12px;letter-spacing:.03em}
+.scene-invite a span{font-size:22px;transition:transform .2s}
+.scene-invite a:hover{color:#fff0c9;border-color:#fff0c9}
+.scene-invite a:hover span{transform:translate(3px,-3px)}
 .product-summary .dots{top:21px;right:24px;flex-direction:row;gap:17px}
 .product-summary .dots:before{width:auto;height:1px;left:7px;right:7px;top:7px;bottom:auto}
 .count{font-size:32px;line-height:1.1}
@@ -29,6 +35,8 @@ aside p{font-size:13px;line-height:1.45;max-width:410px;margin:10px 0;color:#c9c
 .mobile-featured-product{display:none}
 .mobile-scene{display:none}
 @media(min-width:701px) and (max-width:1190px){
+  .scene-invite{right:5%;bottom:12%;width:220px}
+  .scene-invite p{font-size:22px;margin-bottom:14px}
   .product-summary{width:50vw;grid-template-columns:85px minmax(0,1fr);gap:15px;top:33%;padding:8px 20px 8px 0;background:none;border-top:0}
   .featured-product{width:85px;height:125px}
   .featured-product img{width:175px}
