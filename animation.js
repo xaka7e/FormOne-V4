@@ -139,10 +139,6 @@ function renderMobile(p){
 
 function renderDesktop(p){
 
-  const journey=document.querySelector('.journey');
-  const maxScroll=Math.max(1,journey.offsetHeight-innerHeight);
-  const p=clamp(scrollY/maxScroll);
-
   // Main movement now uses more of the scroll range, so the group travels more calmly.
   const travel=clamp(p/.88);
 
