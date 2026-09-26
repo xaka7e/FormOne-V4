@@ -8,6 +8,7 @@ Deutschsprachiger Shop-Prototyp mit einer scrollgesteuerten Startszene. (Нем�
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index.html`                                     | Seitenaufbau, Navigation, SVG-Szenen und feste Texte. (Структура страницы, навигация, SVG-сцены и постоянные тексты.)                                            |
 | `index.html` → `gym-wall-art`, `gym-wall-slogan` | Graffiti an der Seitenwand und die graue Tafel davor. (Граффити на боковой стене и серая табличка поверх него.)                                                |
+| `index.html` → `mobile-platform`, `mobile-platform-front-rail` | Hohe Leiter, Metallsteg und Geländer der mobilen Szene. (Высокая лестница, металлический мостик и перила мобильной сцены.) |
 | `styles.css`                                     | Farben, Schrift, Abstände und Bildschirmgrößen. Die mobilen Regeln stehen am Ende. (Цвета, шрифты, отступы и размеры экрана. Мобильные стили находятся в конце.) |
 | `animation.js` → `featuredProducts`              | Produktnamen, Beschreibungen, Eigenschaften, Bilder und Alternativtexte. (Названия, описания, характеристики, изображения и альтернативные тексты товаров.)      |
 | `animation.js` → `jar`, `leg`, `arm`, `load`     | Zeichnung der Dosen, Athleten und Trageposen. (Отрисовка банок, атлетов и поз с грузом.)                                                                         |

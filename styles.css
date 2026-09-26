@@ -730,10 +730,10 @@ aside p {
   #mobile-world {
     position: absolute;
     top: 175px;
-    left: 0;
-    right: 0;
+    left: 12px;
+    right: 12px;
     bottom: 174px;
-    width: 100%;
+    width: calc(100% - 24px);
     height: calc(100% - 349px);
     object-fit: contain;
   }
@@ -1030,8 +1030,8 @@ aside p {
     top: 66px;
     left: 47%;
     width: 48%;
-    bottom: 47px;
-    height: calc(100% - 113px);
+    bottom: 57px;
+    height: calc(100% - 123px);
   }
   .mobile-featured-product {
     left: 5%;

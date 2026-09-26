@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>FORMONE — Stärke kommt von innen</title>
-    <link rel="stylesheet" href="styles.css?v=mobile-2" />
+    <link rel="stylesheet" href="styles.css?v=mobile-5" />
     <!-- Mobile Folgebilder vorladen, damit der frühe Wechsel sofort sichtbar ist. (Заранее загружаем следующие мобильные фото, чтобы ранняя смена была видна сразу.) -->
     <link
       rel="preload"
@@ -621,10 +621,10 @@
             </div>
             <svg
               id="mobile-world"
-              viewBox="0 0 390 844"
+              viewBox="-115 0 620 844"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
-              aria-label="Ein Athlet auf einer Plattform schüttet Protein in einen großen FORMONE-Shaker. Von der anderen Seite fließt Wasser hinein."
+              aria-label="Ein Athlet auf einem Metallsteg mit hoher Leiter und Geländer schüttet Protein in einen großen FORMONE-Shaker. Von der anderen Seite fließt Wasser hinein."
             >
               <defs>
                 <linearGradient id="m-bg" x1="0" y1="0" x2="0.85" y2="1">
@@ -636,6 +636,11 @@
                   <stop stop-color="#111719" />
                   <stop offset=".5" stop-color="#4d5551" />
                   <stop offset="1" stop-color="#181e1f" />
+                </linearGradient>
+                <linearGradient id="m-platform-metal" x1="0" x2="1">
+                  <stop stop-color="#1a2427" />
+                  <stop offset=".42" stop-color="#566159" />
+                  <stop offset="1" stop-color="#253033" />
                 </linearGradient>
                 <linearGradient id="m-liquid" x1="0" y1="0" x2="0" y2="1">
                   <stop
@@ -704,27 +709,137 @@
                   stroke="#818678"
                 />
               </g>
+              <!-- Hohe Leiter und auskragender Steg nach der Skizze; warme Metallkanten passen zum Shaker. (Высокая лестница и выступающий мостик по эскизу; тёплые металлические кромки сочетаются с шейкером.) -->
               <g id="mobile-platform">
+                <ellipse
+                  cx="469"
+                  cy="831"
+                  rx="41"
+                  ry="8"
+                  fill="#050a0b"
+                  opacity=".5"
+                />
+                <g id="mobile-access-ladder">
+                  <path
+                    d="M442 249L453 244V827L442 831Z M498 249L504 244V827L498 831Z"
+                    fill="#111a1d"
+                  />
+                  <path
+                    d="M438 241H446V826H438Z M494 241H502V826H494Z"
+                    fill="url(#m-platform-metal)"
+                    stroke="#89907a"
+                    stroke-width="1.2"
+                  />
+                  <path
+                    d="M439.5 249V821M495.5 249V821"
+                    stroke="#c1ae83"
+                    stroke-width="1.2"
+                    opacity=".55"
+                  />
+                  <!-- Breite Trittflächen mit einer hellen Vorderkante. (Широкие ступени со светлой передней кромкой.) -->
+                  <path
+                    d="M446 282H494M446 330H494M446 378H494M446 426H494M446 474H494M446 522H494M446 570H494M446 618H494M446 666H494M446 714H494M446 762H494M446 810H494"
+                    stroke="#536058"
+                    stroke-width="8"
+                  />
+                  <path
+                    d="M446 279H494M446 327H494M446 375H494M446 423H494M446 471H494M446 519H494M446 567H494M446 615H494M446 663H494M446 711H494M446 759H494M446 807H494"
+                    stroke="#c0ad83"
+                    stroke-width="1.4"
+                    opacity=".8"
+                  />
+                  <path
+                    d="M434 825H450L454 832H431Z M490 825H504V832H487Z"
+                    fill="#2b3637"
+                    stroke="#8c8b72"
+                    stroke-width="1"
+                  />
+                  <path
+                    d="M437 829H447M492 829H501"
+                    stroke="#c4b18a"
+                    stroke-width="1"
+                    opacity=".65"
+                  />
+                </g>
+                <!-- Diagonalstrebe trägt den Steg neben der Flasche. (Диагональная опора держит мостик сбоку от бутылки.) -->
                 <path
-                  d="M238 229H390V246H238Z"
-                  fill="#22292a"
-                  stroke="#968a70"
+                  d="M356 242L438 329H446L368 242Z"
+                  fill="#293638"
+                  stroke="#697568"
+                  stroke-width="1.4"
                 />
                 <path
-                  d="M268 246L240 330M342 246L368 330"
-                  stroke="#555e59"
-                  stroke-width="8"
+                  d="M364 246L441 325"
+                  stroke="#b0a482"
+                  stroke-width="1.2"
+                  opacity=".5"
                 />
                 <path
-                  d="M249 284H357M245 310H365"
-                  stroke="#555e59"
-                  stroke-width="5"
+                  d="M423 243H446V270Z"
+                  fill="#404c47"
+                  stroke="#8a8b73"
+                  stroke-width="1"
+                />
+                <circle cx="439" cy="251" r="2.4" fill="#b9a986" />
+                <circle cx="440" cy="318" r="2.2" fill="#aaa182" />
+                <!-- Hinteres Geländer bleibt hinter dem Athleten und seiner Dose. (Задние перила остаются за атлетом и его банкой.) -->
+                <g
+                  id="mobile-platform-back-rail"
+                  fill="none"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                >
+                  <path
+                    d="M278 222V172Q278 161 289 161H487Q498 161 498 172V219M280 193H497M347 163V221M420 163V221"
+                    stroke="#121c1f"
+                    stroke-width="10"
+                  />
+                  <path
+                    d="M278 222V172Q278 161 289 161H487Q498 161 498 172V219M280 193H497M347 163V221M420 163V221"
+                    stroke="#626f63"
+                    stroke-width="5"
+                  />
+                  <path
+                    d="M279 177V172Q279 162 289 162H487Q497 162 497 172M348 166V216M421 166V216"
+                    stroke="#bca981"
+                    stroke-width="1.2"
+                    opacity=".65"
+                  />
+                </g>
+                <path
+                  d="M238 229H490L502 219H250Z"
+                  fill="#576052"
+                  stroke="#a19777"
+                  stroke-width="1.2"
                 />
                 <path
-                  d="M249 246V326M360 246V326"
-                  stroke="#747b70"
-                  stroke-width="4"
+                  d="M238 229H490V244H238Z"
+                  fill="url(#m-platform-metal)"
+                  stroke="#9a9276"
+                  stroke-width="1.2"
                 />
+                <path
+                  d="M490 229L502 219V232L490 244Z"
+                  fill="#1b272a"
+                  stroke="#76816f"
+                  stroke-width="1"
+                />
+                <path
+                  d="M244 231H485"
+                  stroke="#d2bf91"
+                  stroke-width="1.4"
+                  opacity=".7"
+                />
+                <path
+                  d="M256 226L263 221M274 226L281 221M292 226L299 221M310 226L317 221M328 226L335 221M346 226L353 221M364 226L371 221M382 226L389 221M400 226L407 221M418 226L425 221M436 226L443 221M454 226L461 221M472 226L479 221"
+                  stroke="#263330"
+                  stroke-width="2"
+                />
+                <g fill="#b7ab85">
+                  <circle cx="249" cy="238" r="1.7" />
+                  <circle cx="370" cy="238" r="1.7" />
+                  <circle cx="480" cy="238" r="1.7" />
+                </g>
               </g>
               <g id="mobile-athlete" transform="translate(326 176)">
                 <circle
@@ -852,6 +967,30 @@
                     WHEY
                   </text>
                 </g>
+              </g>
+              <!-- Vorderes Geländer beginnt neben dem Athleten; der Ausguss bleibt frei. (Передние перила начинаются сбоку от атлета; край для засыпания остаётся свободным.) -->
+              <g
+                id="mobile-platform-front-rail"
+                fill="none"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M370 229V186Q370 177 379 177H481Q490 177 490 186V229M372 206H488M429 179V229"
+                  stroke="#101b1e"
+                  stroke-width="10"
+                />
+                <path
+                  d="M370 229V186Q370 177 379 177H481Q490 177 490 186V229M372 206H488M429 179V229"
+                  stroke="#687466"
+                  stroke-width="5"
+                />
+                <path
+                  d="M371 192V186Q371 178 379 178H481Q489 178 489 186M430 183V225"
+                  stroke="#c3ad7e"
+                  stroke-width="1.4"
+                  opacity=".7"
+                />
               </g>
               <g id="mobile-shaker">
                 <ellipse
