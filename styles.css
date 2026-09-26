@@ -7,13 +7,13 @@
 [data-flavor=chocolate]{--product-scene:url('assets/scene-chocolate.png')}
 [data-flavor=vanilla]{--product-scene:url('assets/scene-vanilla.png')}
 [data-flavor=creatine]{--product-scene:url('assets/scene-creatine.png')}
-.featured-product{position:absolute;z-index:3;left:3.2%;top:40%;width:clamp(250px,20.5vw,330px);height:clamp(315px,43vh,430px);pointer-events:none}
-.featured-product:before{content:'';position:absolute;inset:-3% -8%;background:var(--product-scene) center/cover no-repeat;mask-image:radial-gradient(ellipse 53% 61% at 50% 55%,#000 47%,transparent 99%)}
-.featured-product:after{content:'';position:absolute;bottom:13%;left:24%;width:52%;height:7%;background:#0009;border-radius:50%;filter:blur(7px)}
-.featured-product img{position:absolute;z-index:1;left:50%;top:47%;width:113%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);object-fit:contain;clip-path:url(#whey-silhouette)}
-.featured-product[data-flavor=creatine] img{width:107%;top:45%;clip-path:url(#creatine-silhouette)}
+.featured-product{position:relative;align-self:end;width:130px;height:205px;pointer-events:none}
+.featured-product:after{content:'';position:absolute;bottom:4%;left:5%;width:90%;height:7%;background:#0009;border-radius:50%;filter:blur(9px)}
+.featured-product img{position:absolute;z-index:1;left:50%;top:47%;width:270px;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);object-fit:contain;clip-path:url(#whey-silhouette)}
+.featured-product[data-flavor=creatine] img{width:245px;top:44%;clip-path:url(#creatine-silhouette)}
 .featured-product span{display:none}
-aside{top:61%;right:3.5%;width:clamp(330px,29vw,455px);padding:0 35px 18px 0;text-shadow:0 2px 10px #081012}
+.product-summary{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;top:auto;bottom:8%;right:3.5%;width:min(540px,39vw);padding:18px 34px 16px 8px;border-top:1px solid #b5a47a55;background:linear-gradient(120deg,#10181988,#10181900);text-shadow:0 2px 10px #081012}
+.product-details{min-width:0}
 .count{font-size:36px;line-height:1.1}
 .count small{font-size:20px}
 aside h2{font-size:clamp(25px,1.9vw,30px);margin:10px 0 13px}
@@ -26,6 +26,16 @@ aside p{font-size:14px;line-height:1.5;max-width:390px;margin:13px 0 15px;color:
 .card-visual[data-flavor=creatine] img{height:325px;width:325px;clip-path:url(#creatine-silhouette)}
 .mobile-featured-product{display:none}
 .mobile-scene{display:none}
+@media(min-width:701px) and (max-width:1190px){
+  .product-summary{width:44vw;grid-template-columns:85px minmax(0,1fr);gap:15px;bottom:7%;padding-right:25px;background:none;border-top:0}
+  .featured-product{width:85px;height:125px}
+  .featured-product img{width:175px}
+  .featured-product[data-flavor=creatine] img{width:155px}
+  .product-summary h2{font-size:22px}
+  .product-summary p{font-size:12px}
+  #stage-facts li{font-size:10px}
+  .count{font-size:30px}
+}
 @media(max-width:700px){
   header{height:62px;padding:0 18px;background:#0d1213f2}
   header nav{display:none}
@@ -34,7 +44,7 @@ aside p{font-size:14px;line-height:1.5;max-width:390px;margin:13px 0 15px;color:
   .journey{height:360vh}
   .mobile-scene{display:block;position:absolute;inset:0;background:#0d1213;overflow:hidden;will-change:opacity}
   .mobile-featured-product{display:block;position:absolute;z-index:5;left:12px;top:190px;width:108px;height:133px;text-align:center;pointer-events:none}
-  .mobile-featured-product:before{content:'';position:absolute;inset:0;background:var(--product-scene) center/cover;mask-image:radial-gradient(ellipse,#000 30%,transparent 72%)}
+  .mobile-featured-product:before{content:'';position:absolute;left:18%;right:18%;bottom:16%;height:7%;border-radius:50%;background:#0008;filter:blur(5px)}
   .mobile-featured-product img{position:absolute;left:50%;top:45%;width:150px;height:150px;transform:translate(-50%,-50%);clip-path:url(#whey-silhouette)}
   .mobile-featured-product[data-flavor=creatine] img{width:132px;height:132px;clip-path:url(#creatine-silhouette)}
   .mobile-featured-product span{position:absolute;left:0;right:0;bottom:0;color:#dac9a7;font-size:7px;line-height:1.3;letter-spacing:.04em;text-shadow:0 2px 5px #000}
