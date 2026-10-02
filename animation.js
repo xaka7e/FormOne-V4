@@ -135,7 +135,7 @@ const catalogProducts = [
     "detail": "Premium Whey · 1.000 g",
     "copy": "Whey Protein mit Cookies-Geschmack.",
     "flavor": "cookies",
-    "image": "assets/catalog-scenes/cookies.webp",
+    "image": "assets/catalog-scenes/cookies-packaging-v3.webp",
     "alt": "FormOne Premium Whey Protein Cookies"
   },
   {
@@ -145,7 +145,7 @@ const catalogProducts = [
     "detail": "Premium Whey · 1.000 g",
     "copy": "Whey Protein mit Erdbeergeschmack.",
     "flavor": "strawberry",
-    "image": "assets/catalog-scenes/strawberry.webp",
+    "image": "assets/catalog-scenes/strawberry-packaging-v3.webp",
     "alt": "FormOne Premium Whey Protein Strawberry"
   },
   {
@@ -155,7 +155,7 @@ const catalogProducts = [
     "detail": "500 g Doypack",
     "copy": "Leichtes Clear Whey mit Pfirsich-Eistee-Geschmack.",
     "flavor": "clear-peach",
-    "image": "assets/catalog-scenes/clear-peach.webp",
+    "image": "assets/catalog-scenes/clear-peach-packaging-v3.webp",
     "alt": "FormOne Clear Whey Protein Iced Tea Peach"
   },
   {
@@ -165,7 +165,7 @@ const catalogProducts = [
     "detail": "500 g Doypack",
     "copy": "Clear Whey mit Zitronen-Eistee-Geschmack.",
     "flavor": "clear-lemon",
-    "image": "assets/catalog-scenes/clear-lemon.webp",
+    "image": "assets/catalog-scenes/clear-lemon-packaging-v3.webp",
     "alt": "FormOne Clear Whey Protein Iced Tea Lemon"
   },
   {
@@ -175,7 +175,7 @@ const catalogProducts = [
     "detail": "300 g",
     "copy": "Elektrolyt-Komplex mit Erdbeer-Zitronen-Geschmack.",
     "flavor": "electro-strawberry",
-    "image": "assets/catalog-scenes/electro-strawberry.webp",
+    "image": "assets/catalog-scenes/electro-strawberry-packaging-v3.webp",
     "alt": "FormOne Elektrolyt Komplex Strawberry Lemon"
   },
   {
@@ -185,7 +185,7 @@ const catalogProducts = [
     "detail": "300 g",
     "copy": "Elektrolyt-Komplex mit Tropical-Mango-Geschmack.",
     "flavor": "electro-mango",
-    "image": "assets/catalog-scenes/electro-mango.webp",
+    "image": "assets/catalog-scenes/electro-mango-packaging-v3.webp",
     "alt": "FormOne Elektrolyt Komplex Tropical Mango"
   },
   {
@@ -195,7 +195,7 @@ const catalogProducts = [
     "detail": "90 Gummies",
     "copy": "Kreatin-Gummies mit Kirschgeschmack.",
     "flavor": "creatine-cherry",
-    "image": "assets/catalog-scenes/creatine-cherry.webp",
+    "image": "assets/catalog-scenes/creatine-cherry-packaging-v3.webp",
     "alt": "FormOne Kreatin Gummies Kirsche"
   },
   {
@@ -205,7 +205,7 @@ const catalogProducts = [
     "detail": "Doypack",
     "copy": "Kreatin-Monohydrat in Pulverform.",
     "flavor": "creatine-pure",
-    "image": "assets/catalog-scenes/creatine-pure.webp",
+    "image": "assets/catalog-scenes/creatine-pure-packaging-v3.webp",
     "alt": "FormOne Creatine Monohydrate Doypack"
   },
   {
@@ -215,7 +215,7 @@ const catalogProducts = [
     "detail": "60 Gummies",
     "copy": "Magnesium-Gummies mit Himbeergeschmack, Vitamin B6 und Zink.",
     "flavor": "magnesium",
-    "image": "assets/catalog-scenes/magnesium.webp",
+    "image": "assets/catalog-scenes/magnesium-packaging-v3.webp",
     "alt": "FormOne Magnesium Zink B6 Gummies"
   },
   {
@@ -225,7 +225,7 @@ const catalogProducts = [
     "detail": "60 Gummies",
     "copy": "Ashwagandha-Gummies mit Mango-Geschmack und Vitamin B6.",
     "flavor": "ashwagandha",
-    "image": "assets/catalog-scenes/ashwagandha.webp",
+    "image": "assets/catalog-scenes/ashwagandha-packaging-v3.webp",
     "alt": "FormOne Ashwagandha Vitamin B6 Gummies"
   },
   {
@@ -235,7 +235,7 @@ const catalogProducts = [
     "detail": "1.000 mg · 60 Gummies",
     "copy": "Shilajit-Gummies mit Vitamin C, B6 und B12.",
     "flavor": "shilajit",
-    "image": "assets/catalog-scenes/shilajit.webp",
+    "image": "assets/catalog-scenes/shilajit-packaging-v3.webp",
     "alt": "FormOne Shilajit Gummies"
   },
   {
@@ -245,7 +245,7 @@ const catalogProducts = [
     "detail": "520 g",
     "copy": "Pre-Workout Booster mit Himbeergeschmack.",
     "flavor": "pre-raspberry",
-    "image": "assets/catalog-scenes/pre-raspberry.webp",
+    "image": "assets/catalog-scenes/pre-raspberry-packaging-v3.webp",
     "alt": "FormOne Pre Workout Booster Himbeere"
   },
   {
@@ -255,7 +255,7 @@ const catalogProducts = [
     "detail": "520 g",
     "copy": "Pre-Workout Booster mit Tutti-Frutti-Geschmack.",
     "flavor": "pre-tutti",
-    "image": "assets/catalog-scenes/pre-tutti.webp",
+    "image": "assets/catalog-scenes/pre-tutti-packaging-v3.webp",
     "alt": "FormOne Pre Workout Booster Tutti Frutti"
   }
 ];
