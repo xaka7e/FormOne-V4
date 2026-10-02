@@ -84,7 +84,7 @@ def cutout(data):
   i=y*w+x
   if visited[i]: return
   visited[i]=1;c=px[x,y]
-  if min(c)>=178 and max(c)-min(c)<=24: a[x,y]=0;q.append((x,y))
+  if min(c)>=120 and sum(c)/3>=155 and max(c)-min(c)<=105: a[x,y]=0;q.append((x,y))
  for x in range(w): add(x,0);add(x,h-1)
  for y in range(h): add(0,y);add(w-1,y)
  while q:
