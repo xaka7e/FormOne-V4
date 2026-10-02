@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>FORMONE — Stärke kommt von innen</title>
-    <link rel="stylesheet" href="styles.css?v=mobile-7" />
+    <link rel="stylesheet" href="styles.css?v=catalog-snow-1" />
     <!-- Mobile Folgebilder vorladen, damit der frühe Wechsel sofort sichtbar ist. (Заранее загружаем следующие мобильные фото, чтобы ранняя смена была видна сразу.) -->
     <link
       rel="preload"
@@ -1177,14 +1177,22 @@
         </div>
       </section>
 
-      <!-- Produktkarten werden aus featuredProducts in animation.js erzeugt. (Карточки создаются из featuredProducts в animation.js.) -->
+      <!-- Vollständiger Katalog: 16 Produkte aus den vier Produktwelten. (Полный каталог: 16 товаров из четырёх категорий.) -->
       <section id="products" class="products">
         <div class="section-heading">
           <div>
             <p class="eyebrow">AN DEINER SEITE. SCHRITT FÜR SCHRITT.</p>
             <h2>Unsere Produkte</h2>
           </div>
-          <p>Stärke entsteht durch Beständigkeit.</p>
+          <p id="catalog-count">16 Produkte · 4 Produktwelten.</p>
+        </div>
+        <!-- Filter bleiben bewusst kompakt und funktionieren auch horizontal auf dem Smartphone. (Фильтры компактные и на телефоне прокручиваются горизонтально.) -->
+        <div class="catalog-toolbar" aria-label="Produktkategorien">
+          <button class="catalog-filter active" type="button" data-filter="all" aria-pressed="true">Alle</button>
+          <button class="catalog-filter" type="button" data-filter="Protein" aria-pressed="false">Protein</button>
+          <button class="catalog-filter" type="button" data-filter="Performance" aria-pressed="false">Performance</button>
+          <button class="catalog-filter" type="button" data-filter="Strength" aria-pressed="false">Strength</button>
+          <button class="catalog-filter" type="button" data-filter="Wellness" aria-pressed="false">Wellness</button>
         </div>
         <div class="cards"></div>
       </section>
@@ -1213,6 +1221,6 @@
       </p>
       <a href="#top">Zurück nach oben ↑</a>
     </footer>
-    <script src="animation.js?v=mobile-6"></script>
+    <script src="animation.js?v=catalog-snow-1"></script>
   </body>
 </html>
