@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/flavor-card-build.yml
       - scripts/build-flavor-scenes.py
+      - scripts/refine-flavor-cutouts.py
       - tests/catalog-scenes.cjs
 permissions:
   contents: write
@@ -28,8 +29,11 @@ jobs:
           python -m pip install pillow cairosvg
           npm install --no-save --package-lock=false playwright
           npx playwright install --with-deps chromium webkit
-      - name: Save hero asset checksums and serve original version
+      - name: Restore agreed baseline for repeatable regression comparison
         run: |
+          git show 4cebbd416d4c3af19cd2c86ce4a4227fc199f8c6:animation.js > animation.js
+          git show 4cebbd416d4c3af19cd2c86ce4a4227fc199f8c6:styles.css > styles.css
+          git show 4cebbd416d4c3af19cd2c86ce4a4227fc199f8c6:index.html > index.html
           sha256sum assets/scene-*.png assets/formone-*.jpg > /tmp/formone-hero.sha256
           nohup python -m http.server 4173 > /tmp/formone-http.log 2>&1 &
       - name: Baseline mobile animation
@@ -43,8 +47,10 @@ jobs:
           cat /tmp/formone-red.log
           test "$code" -ne 0
           grep -q '13 individual flavor scenes are required' /tmp/formone-red.log
-      - name: Build packaging-led scenes and update catalog
-        run: python scripts/build-flavor-scenes.py
+      - name: Warm-background regression and build
+        run: |
+          python scripts/refine-flavor-cutouts.py
+          python scripts/build-flavor-scenes.py
       - name: Verify source syntax and unchanged hero artwork
         run: |
           node --check animation.js
@@ -54,12 +60,24 @@ jobs:
           node tests/mobile-story.cjs
           node tests/catalog-scenes.cjs
           BROWSER=webkit node tests/catalog-scenes.cjs
+      - name: Compact visual review image
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import base64,textwrap
+          image=Image.open('qa/flavor-scenes-review.jpg')
+          image.resize((384,312)).save('qa/flavor-scenes-review-small.jpg',quality=52)
+          data=base64.b64encode(Path('qa/flavor-scenes-review-small.jpg').read_bytes()).decode()
+          Path('qa/flavor-scenes-review-small.b64.txt').write_text('\n'.join(textwrap.wrap(data,100))+'\n')
+          print('Review image:',len(data),'base64 characters')
+          PY
       - name: Save verified preview to the same branch only
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add animation.js styles.css index.html assets/catalog-scenes qa
-          git commit -m 'Replace snow catalog with verified packaging-led flavor scenes'
+          git add animation.js styles.css index.html assets/catalog-scenes qa scripts/build-flavor-scenes.py
+          git commit -m 'Fix warm background cutouts; verify complete flavor catalog'
           git push origin HEAD:design/flavor-cards-20261002
       - uses: actions/upload-artifact@v4
         if: always()
