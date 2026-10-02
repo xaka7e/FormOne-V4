@@ -1,0 +1,71 @@
+name: Flavor card preview verification
+on:
+  push:
+    branches: [design/flavor-cards-20261002]
+    paths:
+      - .github/workflows/flavor-card-build.yml
+      - scripts/build-flavor-scenes.py
+      - tests/catalog-scenes.cjs
+permissions:
+  contents: write
+concurrency:
+  group: flavor-card-preview
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build and browser test tools
+        run: |
+          python -m pip install pillow cairosvg
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium webkit
+      - name: Save hero asset checksums and serve original version
+        run: |
+          sha256sum assets/scene-*.png assets/formone-*.jpg > /tmp/formone-hero.sha256
+          nohup python -m http.server 4173 > /tmp/formone-http.log 2>&1 &
+      - name: Baseline mobile animation
+        run: node tests/mobile-story.cjs
+      - name: Verify new regression test fails on old cards
+        run: |
+          set +e
+          node tests/catalog-scenes.cjs > /tmp/formone-red.log 2>&1
+          code=$?
+          set -e
+          cat /tmp/formone-red.log
+          test "$code" -ne 0
+          grep -q '13 individual flavor scenes are required' /tmp/formone-red.log
+      - name: Build packaging-led scenes and update catalog
+        run: python scripts/build-flavor-scenes.py
+      - name: Verify source syntax and unchanged hero artwork
+        run: |
+          node --check animation.js
+          sha256sum -c /tmp/formone-hero.sha256
+      - name: Complete Chromium and WebKit regression suite
+        run: |
+          node tests/mobile-story.cjs
+          node tests/catalog-scenes.cjs
+          BROWSER=webkit node tests/catalog-scenes.cjs
+      - name: Save verified preview to the same branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add animation.js styles.css index.html assets/catalog-scenes qa
+          git commit -m 'Replace snow catalog with verified packaging-led flavor scenes'
+          git push origin HEAD:design/flavor-cards-20261002
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flavor-card-design-review
+          path: |
+            qa/
+            assets/catalog-scenes/sources.json
+          if-no-files-found: ignore
