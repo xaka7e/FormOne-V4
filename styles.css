@@ -787,6 +787,14 @@ aside p {
     padding: 8px 12px 8px 84px;
     text-align: left;
     pointer-events: none;
+    isolation: isolate;
+  }
+  /* Der Hintergrund reicht bis zum Bildschirmrand, der Inhalt behält seinen Abstand. (Фон доходит до краёв экрана, содержимое сохраняет отступы.) */
+  .mobile-featured-product::after {
+    content: "";
+    position: absolute;
+    inset: 0 -18px;
+    z-index: -1;
     border-top: 1px solid #b5a47a55;
     background: linear-gradient(110deg, #101819e6, #10181955);
   }
@@ -1039,6 +1047,10 @@ aside p {
     bottom: 23px;
     width: 42%;
     height: 80px;
+  }
+  .mobile-featured-product::after {
+    left: 0;
+    right: 0;
   }
   .mobile-status {
     left: auto;
