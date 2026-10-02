@@ -91,6 +91,175 @@ const featuredProducts = [
 ];
 const labels = featuredProducts.map((product) => product.title);
 const descriptions = featuredProducts.map((product) => product.copy);
+// Vollständiger Shop-Katalog. Die drei bestehenden Hero-Karten behalten ihre eigenen Szenen;
+// die übrigen Produkte bekommen ein helles Frost/Snow-Artwork. (Полный каталог магазина:
+// три существующие герой-карточки сохраняют свои сцены, остальные получают светлый снежный стиль.)
+const catalogProducts = [
+  {
+    id: "01",
+    title: "Protein · Schokolade",
+    category: "Protein",
+    detail: "Premium Whey · 1.000 g",
+    copy: "Cremiges Whey Protein mit Schokoladengeschmack – die dunkle FORMONE-Szene bleibt als bestehendes Key Visual erhalten.",
+    flavor: "chocolate",
+    image: "assets/formone-whey-chocolate.jpg",
+    alt: "Originalverpackung von FormOne Premium Whey Protein Chocolate",
+    scene: true,
+  },
+  {
+    id: "02",
+    title: "Kreatin Gummies · Apfel",
+    category: "Strength",
+    detail: "90 Gummies",
+    copy: "Zuckerfreie Kreatin-Gummies mit Apfelgeschmack. Praktisch portioniert und für den Alltag gedacht.",
+    flavor: "creatine",
+    image: "assets/formone-creatine-gummies.jpg",
+    alt: "Originalverpackung von FormOne Kreatin Gummies Apfel",
+    scene: true,
+  },
+  {
+    id: "03",
+    title: "Protein · Vanille",
+    category: "Protein",
+    detail: "Premium Whey · 1.000 g",
+    copy: "Mildes Whey Protein mit Vanillegeschmack – mit der bereits entwickelten hellen FORMONE-Szene.",
+    flavor: "vanilla",
+    image: "assets/formone-whey-vanilla.jpg",
+    alt: "Originalverpackung von FormOne Premium Whey Protein Vanilla",
+    scene: true,
+  },
+  {
+    id: "04",
+    title: "Protein · Cookies",
+    category: "Protein",
+    detail: "Premium Whey · 1.000 g",
+    copy: "Whey Protein mit Cookies-Geschmack. Warme Biscuit-Töne treffen auf die neue kühle Frost-Basis.",
+    flavor: "cookies",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front_8c509d05-3cec-444e-81b2-8fbcd9f8719d.jpg?v=1784650131&width=1200",
+    alt: "FormOne Premium Whey Protein Cookies",
+  },
+  {
+    id: "05",
+    title: "Protein · Erdbeere",
+    category: "Protein",
+    detail: "Premium Whey · 1.000 g",
+    copy: "Whey Protein mit Erdbeergeschmack. Roter Fruchtakzent auf einer klaren, fast eisigen Bühne.",
+    flavor: "strawberry",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front_56c6d087-e17d-4a33-8844-fe538a62cb1d.jpg?v=1784649873&width=1200",
+    alt: "FormOne Premium Whey Protein Strawberry",
+  },
+  {
+    id: "06",
+    title: "Clear Whey · Iced Tea Peach",
+    category: "Protein",
+    detail: "500 g Doypack",
+    copy: "Leichtes Clear Whey mit Pfirsich-Eistee-Geschmack. Die Karte wirkt wie kaltes Glas mit einem warmen Peach-Glow.",
+    flavor: "clear-peach",
+    image: "https://formonenutrition.com/cdn/shop/files/Front_180aed99-3794-4ad2-b267-499e7bdbd142.jpg?v=1784649755&width=1200",
+    alt: "FormOne Clear Whey Protein Iced Tea Peach",
+  },
+  {
+    id: "07",
+    title: "Clear Whey · Iced Tea Lemon",
+    category: "Protein",
+    detail: "500 g Doypack",
+    copy: "Clear Whey mit Zitronen-Eistee-Geschmack. Helles Frost-Finish mit einem frischen gelben Lichtakzent.",
+    flavor: "clear-lemon",
+    image: "https://formonenutrition.com/cdn/shop/files/Front_0c37ff02-4158-4079-8c03-3ef672a408ee.jpg?v=1784650080&width=1200",
+    alt: "FormOne Clear Whey Protein Iced Tea Lemon",
+  },
+  {
+    id: "08",
+    title: "Elektrolyt · Strawberry Lemon",
+    category: "Performance",
+    detail: "300 g",
+    copy: "Elektrolyt-Komplex mit Erdbeer-Zitronen-Geschmack. Kühles Weiß mit roten und gelben Fruchtreflexen.",
+    flavor: "electro-strawberry",
+    image: "https://formonenutrition.com/cdn/shop/files/Elektrolyte-Front_2138055a-4064-4834-a26b-7408594c12a7.jpg?v=1784649596&width=1200",
+    alt: "FormOne Elektrolyt Komplex Strawberry Lemon",
+  },
+  {
+    id: "09",
+    title: "Elektrolyt · Tropical Mango",
+    category: "Performance",
+    detail: "300 g",
+    copy: "Elektrolyt-Komplex mit Tropical-Mango-Geschmack. Schneeweißes Grundbild mit Mango- und Grünakzenten.",
+    flavor: "electro-mango",
+    image: "https://formonenutrition.com/cdn/shop/files/Elektrolyte-Front.jpg?v=1784649456&width=1200",
+    alt: "FormOne Elektrolyt Komplex Tropical Mango",
+  },
+  {
+    id: "10",
+    title: "Kreatin Gummies · Kirsche",
+    category: "Strength",
+    detail: "90 Gummies",
+    copy: "Kreatin-Gummies mit Kirschgeschmack. Dunkles Kirschrot setzt sich klar gegen die frostige Fläche ab.",
+    flavor: "creatine-cherry",
+    image: "https://formonenutrition.com/cdn/shop/files/Front-bottle_db7e111c-c671-4125-bae4-9a0ade22a2a3.jpg?v=1785355822&width=1200",
+    alt: "FormOne Kreatin Gummies Kirsche",
+  },
+  {
+    id: "11",
+    title: "Kreatin Monohydrat",
+    category: "Strength",
+    detail: "Doypack",
+    copy: "100 % Kreatin-Monohydrat. Die bewusst reduzierte Karte ist die reinste Version des neuen Snow-Looks.",
+    flavor: "creatine-pure",
+    image: "https://formonenutrition.com/cdn/shop/files/Front.jpg?v=1784649650&width=1200",
+    alt: "FormOne Creatine Monohydrate Doypack",
+  },
+  {
+    id: "12",
+    title: "Magnesium + Zink + B6 Gummies",
+    category: "Wellness",
+    detail: "60 Gummies",
+    copy: "Magnesium-Gummies mit Himbeergeschmack, Vitamin B6 und Zink. Eisiges Weiß mit weichem Raspberry-Glow.",
+    flavor: "magnesium",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front_56546794-6e3c-45ff-a786-0c3168ade125.jpg?v=1784649983&width=1200",
+    alt: "FormOne Magnesium Zink B6 Gummies",
+  },
+  {
+    id: "13",
+    title: "Ashwagandha + Vitamin B6 Gummies",
+    category: "Wellness",
+    detail: "60 Gummies",
+    copy: "Ashwagandha-Gummies mit Mango-Geschmack und Vitamin B6. Ruhiges Wellness-Design mit warmem Sonnenakzent im Schnee.",
+    flavor: "ashwagandha",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front.jpg?v=1784649387&width=1200",
+    alt: "FormOne Ashwagandha Vitamin B6 Gummies",
+  },
+  {
+    id: "14",
+    title: "Shilajit Gummies",
+    category: "Wellness",
+    detail: "1.000 mg · 60 Gummies",
+    copy: "Shilajit-Gummies mit Vitamin C, B6 und B12. Kühler Blue-Berry-Akzent auf der hellen Premium-Basis.",
+    flavor: "shilajit",
+    image: "https://formonenutrition.com/cdn/shop/files/Front-bottle_27bc7231-79fa-4997-93d3-f2aa2c65aae2.jpg?v=1785355212&width=1200",
+    alt: "FormOne Shilajit Gummies",
+  },
+  {
+    id: "15",
+    title: "Pre-Workout · Himbeere",
+    category: "Performance",
+    detail: "520 g",
+    copy: "Pre-Workout Booster mit Himbeergeschmack. Ein kräftiger Pink-Impuls durchbricht die kalte, minimalistische Fläche.",
+    flavor: "pre-raspberry",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front_9f5b7d37-08b5-4916-b4d0-e3097e342544.jpg?v=1784650187&width=1200",
+    alt: "FormOne Pre Workout Booster Himbeere",
+  },
+  {
+    id: "16",
+    title: "Pre-Workout · Tutti Frutti",
+    category: "Performance",
+    detail: "520 g",
+    copy: "Pre-Workout Booster mit Tutti-Frutti-Geschmack. Orange und Fruchtfarben bleiben kontrolliert auf der Snow-Bühne.",
+    flavor: "pre-tutti",
+    image: "https://formonenutrition.com/cdn/shop/files/bottle-front_7e0982b9-78d6-4b6b-94f1-bd0a4ee96ac5.jpg?v=1784649702&width=1200",
+    alt: "FormOne Pre Workout Booster Tutti Frutti",
+  },
+];
+
 // SVG-Bausteine für Dosen und Athleten. (SVG-элементы банок и атлетов.)
 function jar(name, x = -100, y = -176, s = 1) {
   const small = name === "ENZYME";
@@ -224,24 +393,53 @@ for (let i = 0; i < 7; i++) {
     <circle cx="${x}" cy="${y - 18}" r="4" fill="#ffe1a0"/>`;
 }
 document.querySelector("#terrain").innerHTML = terrain;
-// Der Katalog nutzt dieselben Produktdaten wie die Startszene. (Каталог использует те же данные товаров, что и первая сцена.)
-document.querySelector(".cards").innerHTML = [
-  featuredProducts[0],
-  featuredProducts[1],
-  featuredProducts[2],
-]
-  .map(
-    (product, i) =>
-      `<article class="card">
-    <span class="tag">FORMONE / 0${i + 1}</span>
-    <div class="card-visual product-art" data-flavor="${product.flavor}">
-    <img src="${product.image}" alt="${product.alt}" loading="lazy">
-    </div>
-    <h3>${product.title}</h3>
-    <p>${product.copy}</p>
-    </article>`,
-  )
-  .join("");
+// Vollständiger Katalog mit Filterung nach Produktwelt. (Полный каталог с фильтрами по категориям.)
+const cardsContainer = document.querySelector(".cards");
+const catalogCount = document.querySelector("#catalog-count");
+
+function renderCatalog(filter = "all") {
+  const visible =
+    filter === "all"
+      ? catalogProducts
+      : catalogProducts.filter((product) => product.category === filter);
+
+  cardsContainer.innerHTML = visible
+    .map(
+      (product) =>
+        `<article class="card" data-category="${product.category}">
+          <span class="tag">${product.category.toUpperCase()} / ${product.id}</span>
+          <div class="card-visual product-art ${product.scene ? "scene-art" : "snow-art"}" data-flavor="${product.flavor}">
+            <img src="${product.image}" alt="${product.alt}" loading="lazy" decoding="async">
+          </div>
+          <div class="card-meta">
+            <span>${product.detail}</span>
+            <span>FORMONE</span>
+          </div>
+          <h3>${product.title}</h3>
+          <p>${product.copy}</p>
+        </article>`,
+    )
+    .join("");
+
+  if (catalogCount) {
+    catalogCount.textContent =
+      filter === "all"
+        ? `${catalogProducts.length} Produkte · 4 Produktwelten.`
+        : `${visible.length} Produkte · ${filter}.`;
+  }
+}
+
+document.querySelectorAll(".catalog-filter").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".catalog-filter").forEach((item) => {
+      item.classList.toggle("active", item === button);
+      item.setAttribute("aria-pressed", String(item === button));
+    });
+    renderCatalog(button.dataset.filter || "all");
+  });
+});
+
+renderCatalog();
 const rigs = [0, 1, 2, 3].map((i) => document.querySelector("#walker-" + i));
 const starts = [
   [420, 843, 1.2],
