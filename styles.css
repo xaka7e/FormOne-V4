@@ -1071,7 +1071,7 @@ aside p {
 }
 
 
-/* Vollständiger Produktkatalog: Snow/Frost-System für die neuen Karten. (Полный каталог: снежно-морозная система для новых карточек.) */
+/* Vollständiger Produktkatalog: Geschmacks-Szenen für die neuen Karten. (Полный каталог: сцены по вкусам новых товаров.) */
 .catalog-toolbar {
   display: flex;
   gap: 9px;
@@ -1135,78 +1135,34 @@ aside p {
 .card > p {
   margin-top: 0;
 }
-.card-visual.snow-art {
-  --ice-rgb: 178, 197, 208;
+/* Geschmacks-Szenen: Originalverpackung, ruhiger Hintergrund, keine Schneeschicht.
+   (Сцены вкусов: оригинальная упаковка, спокойное окружение, без снега.) */
+.card-visual.flavor-art {
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid #ffffffa8;
+  background: #111617;
+  border: 1px solid #ffffff0d;
   border-radius: 7px;
-  background:
-    radial-gradient(circle at 50% 12%, rgba(var(--ice-rgb), 0.32), transparent 31%),
-    radial-gradient(circle at 18% 25%, #fff 0 1px, transparent 1.6px) 0 0 / 22px 22px,
-    radial-gradient(circle at 72% 18%, #fff 0 1.2px, transparent 1.8px) 7px 9px / 31px 31px,
-    linear-gradient(145deg, #ffffff 0%, #f7fafb 38%, #e9eff2 72%, #dce6eb 100%);
-  box-shadow:
-    inset 0 1px 0 #fff,
-    inset 0 -30px 70px rgba(var(--ice-rgb), 0.14),
-    0 14px 30px #0002;
 }
-.card-visual.snow-art::before {
-  content: "";
-  position: absolute;
-  inset: -15%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 32% 76%, rgba(var(--ice-rgb), 0.24), transparent 22%),
-    radial-gradient(circle at 76% 64%, rgba(255,255,255,0.9), transparent 20%);
-  filter: blur(9px);
-}
-.card-visual.snow-art::after {
-  content: "";
+.card .flavor-art img,
+.card:hover .flavor-art img {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    linear-gradient(118deg, transparent 8%, #ffffff78 28%, transparent 47%),
-    linear-gradient(to top, #edf5f7b8, transparent 22%);
-  box-shadow: inset 0 0 46px #ffffff72;
-  mix-blend-mode: screen;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  transform: none;
+  clip-path: none;
+  object-fit: contain;
+  mix-blend-mode: normal;
+  filter: none;
 }
-.card .snow-art img {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  left: 0;
-  top: 0;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none;
-  transform: none !important;
-  clip-path: none !important;
-  object-fit: cover;
-  mix-blend-mode: multiply;
-  filter: saturate(1.06) contrast(1.025);
-  transition: transform 0.35s ease, filter 0.35s ease;
+.card-visual.flavor-art::before,
+.card-visual.flavor-art::after { content: none; }
+@media (prefers-reduced-motion: reduce) {
+  .card, .catalog-filter { transition: none; }
+  .card:hover, .catalog-filter:hover { transform: none; }
 }
-.card:hover .snow-art img {
-  transform: scale(1.025) !important;
-  filter: saturate(1.1) contrast(1.04);
-}
-.snow-art[data-flavor="cookies"] { --ice-rgb: 205, 167, 122; }
-.snow-art[data-flavor="strawberry"] { --ice-rgb: 233, 91, 105; }
-.snow-art[data-flavor="clear-peach"] { --ice-rgb: 255, 175, 137; }
-.snow-art[data-flavor="clear-lemon"] { --ice-rgb: 239, 216, 96; }
-.snow-art[data-flavor="electro-strawberry"] { --ice-rgb: 224, 71, 81; }
-.snow-art[data-flavor="electro-mango"] { --ice-rgb: 239, 170, 54; }
-.snow-art[data-flavor="creatine-cherry"] { --ice-rgb: 154, 38, 64; }
-.snow-art[data-flavor="creatine-pure"] { --ice-rgb: 169, 191, 204; }
-.snow-art[data-flavor="magnesium"] { --ice-rgb: 223, 84, 123; }
-.snow-art[data-flavor="ashwagandha"] { --ice-rgb: 229, 156, 58; }
-.snow-art[data-flavor="shilajit"] { --ice-rgb: 72, 139, 197; }
-.snow-art[data-flavor="pre-raspberry"] { --ice-rgb: 235, 46, 111; }
-.snow-art[data-flavor="pre-tutti"] { --ice-rgb: 239, 151, 37; }
 
 @media (max-width: 980px) and (min-width: 701px) {
   .cards {
@@ -1225,7 +1181,7 @@ aside p {
   .card h3 {
     min-height: 0;
   }
-  .card-visual.snow-art {
+  .card-visual.flavor-art {
     height: 290px;
   }
 }
