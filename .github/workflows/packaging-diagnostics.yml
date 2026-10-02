@@ -1,0 +1,56 @@
+name: Packaging diagnostics
+on:
+  push:
+    branches: [fix/catalog-packaging-20261002]
+    paths: [.github/workflows/packaging-diagnostics.yml]
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Collect public product sources without altering site files
+        run: |
+          mkdir -p diagnostics/originals
+          git show origin/design/flavor-cards-20261002:scripts/build-flavor-scenes.py > diagnostics/previous-builder.py
+          python - <<'PY'
+          import json, urllib.request, pathlib, concurrent.futures
+          root=pathlib.Path('diagnostics'); entries=json.loads(pathlib.Path('assets/catalog-scenes/sources.json').read_text())
+          def get(url):
+            request=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 FormOne asset verification'})
+            with urllib.request.urlopen(request,timeout=35) as r: return r.read(12000000)
+          def save(entry):
+            data=get(entry['source']); (root/'originals'/f"{entry['flavor']}.jpg").write_bytes(data)
+            print('source',entry['flavor'],len(data))
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool: list(pool.map(save,entries))
+          try:
+            data=get('https://formonenutrition.com/products.json?limit=250')
+            products=json.loads(data);(root/'products.json').write_bytes(data)
+            print('catalog products',len(products.get('products',[])))
+            wanted=[]
+            for p in products.get('products',[]):
+              title=p['title'].lower()
+              if any(term in title for term in ('clear','monohydrat')):
+                for i,img in enumerate(p.get('images',[])[:4]):
+                  wanted.append({'flavor':p['handle']+'--'+str(i),'source':img['src']})
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool: list(pool.map(save,wanted))
+          except Exception as e: print('CATALOG DISCOVERY FAILED',type(e).__name__,str(e))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packaging-diagnostics
+          path: |
+            diagnostics/
+            assets/
+            tests/
+            index.html
+            styles.css
+            animation.js
+            robots.txt
+            vercel.json
+            README.md
+          retention-days: 3
