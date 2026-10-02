@@ -1,0 +1,80 @@
+[
+  {
+    "flavor": "cookies",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front_8c509d05-3cec-444e-81b2-8fbcd9f8719d.jpg?v=1784650131&width=1200",
+    "sha256": "84403f3ae1e20b7bf718cae71f4e8ba3e678a36f256e771b0beb8a79eba38411",
+    "artwork": "assets/catalog-scenes/cookies.webp"
+  },
+  {
+    "flavor": "strawberry",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front_56c6d087-e17d-4a33-8844-fe538a62cb1d.jpg?v=1784649873&width=1200",
+    "sha256": "69a7143f8b3f7e8cfbbf52c32c64c186b4b9219e605436cfe9556037396c02ba",
+    "artwork": "assets/catalog-scenes/strawberry.webp"
+  },
+  {
+    "flavor": "clear-peach",
+    "source": "https://formonenutrition.com/cdn/shop/files/Front_180aed99-3794-4ad2-b267-499e7bdbd142.jpg?v=1784649755&width=1200",
+    "sha256": "dfdfaa5d58fab068ce693bc3fc4e8e5e1aa794f0d89433e75365267324a1b97c",
+    "artwork": "assets/catalog-scenes/clear-peach.webp"
+  },
+  {
+    "flavor": "clear-lemon",
+    "source": "https://formonenutrition.com/cdn/shop/files/Front_0c37ff02-4158-4079-8c03-3ef672a408ee.jpg?v=1784650080&width=1200",
+    "sha256": "a246119d25aa3909d99dcd6412630359caa52be801e292bc3e8e74c2f96bb1de",
+    "artwork": "assets/catalog-scenes/clear-lemon.webp"
+  },
+  {
+    "flavor": "electro-strawberry",
+    "source": "https://formonenutrition.com/cdn/shop/files/Elektrolyte-Front_2138055a-4064-4834-a26b-7408594c12a7.jpg?v=1784649596&width=1200",
+    "sha256": "74a1ef236781e3aee53d68936eadd27189609bcd3bf3eb568548e0675f5b64ca",
+    "artwork": "assets/catalog-scenes/electro-strawberry.webp"
+  },
+  {
+    "flavor": "electro-mango",
+    "source": "https://formonenutrition.com/cdn/shop/files/Elektrolyte-Front.jpg?v=1784649456&width=1200",
+    "sha256": "7d4575a2b747090b0bba49217eb47c82a846841c04b1ea161987910f716019c7",
+    "artwork": "assets/catalog-scenes/electro-mango.webp"
+  },
+  {
+    "flavor": "creatine-cherry",
+    "source": "https://formonenutrition.com/cdn/shop/files/Front-bottle_db7e111c-c671-4125-bae4-9a0ade22a2a3.jpg?v=1785355822&width=1200",
+    "sha256": "e8eaf9ab7e4c2ae2bca572fda56a14a8179c21cd68deed14381ab1454dccd4d7",
+    "artwork": "assets/catalog-scenes/creatine-cherry.webp"
+  },
+  {
+    "flavor": "creatine-pure",
+    "source": "https://formonenutrition.com/cdn/shop/files/Front.jpg?v=1784649650&width=1200",
+    "sha256": "73c0e5b646ad35dbba0eca4df10781e19a18cddb4c64049e3781fe1c5723fba5",
+    "artwork": "assets/catalog-scenes/creatine-pure.webp"
+  },
+  {
+    "flavor": "magnesium",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front_56546794-6e3c-45ff-a786-0c3168ade125.jpg?v=1784649983&width=1200",
+    "sha256": "7f8d36b7b504dd884ba42800c9b738f2d033b6a1a4be276660d69c51c97eeb55",
+    "artwork": "assets/catalog-scenes/magnesium.webp"
+  },
+  {
+    "flavor": "ashwagandha",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front.jpg?v=1784649387&width=1200",
+    "sha256": "c7e4a5e7511099569ed4cf9a1b94cbfd738a526a738d08d2609667f1e624415e",
+    "artwork": "assets/catalog-scenes/ashwagandha.webp"
+  },
+  {
+    "flavor": "shilajit",
+    "source": "https://formonenutrition.com/cdn/shop/files/Front-bottle_27bc7231-79fa-4997-93d3-f2aa2c65aae2.jpg?v=1785355212&width=1200",
+    "sha256": "a3b63aa8ffab6d6aa20b3b5178bafb0f25242d05bed0200db36821b4a23cd93d",
+    "artwork": "assets/catalog-scenes/shilajit.webp"
+  },
+  {
+    "flavor": "pre-raspberry",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front_9f5b7d37-08b5-4916-b4d0-e3097e342544.jpg?v=1784650187&width=1200",
+    "sha256": "5d934c5aaa993da52c687202e2aac3a72348005664839fa9e10d98e8f557a755",
+    "artwork": "assets/catalog-scenes/pre-raspberry.webp"
+  },
+  {
+    "flavor": "pre-tutti",
+    "source": "https://formonenutrition.com/cdn/shop/files/bottle-front_7e0982b9-78d6-4b6b-94f1-bd0a4ee96ac5.jpg?v=1784649702&width=1200",
+    "sha256": "2bf2c0af3fed5faf25b61504d0ac1de5a4c75acee809babc90236977aea31e4f",
+    "artwork": "assets/catalog-scenes/pre-tutti.webp"
+  }
+]
